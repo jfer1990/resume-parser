@@ -14,8 +14,7 @@ import { useContext } from "react";
 import { ReviewerContext } from "./context/Reviewercontext";
 
 export const SideBar = () => {
-  const { drawerWidth, students, setStudents, onAddStudent } =
-    useContext(ReviewerContext);
+  const { drawerWidth, students } = useContext(ReviewerContext);
 
   return (
     <Box
@@ -43,7 +42,6 @@ export const SideBar = () => {
           ))}
         </List>
         <IconButton
-          onClick={onAddStudent}
           size="large"
           sx={{
             color: "white",

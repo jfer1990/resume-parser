@@ -17,9 +17,11 @@ export const ReviewerProvider = ({ children }) => {
     "Fernando joachin",
   ]);
 
-  const onAddStudent = () => {
-    setStudents([...students, "hola"]);
-  };
+  const [reviewers, setReviewers] = useState(["Luis", "marcelo", "Fernando"]);
+
+  // const onAddStudent = () => {
+  //   setStudents([...students, "hola"]);
+  // };
 
   return (
     <ReviewerContext.Provider
@@ -27,7 +29,9 @@ export const ReviewerProvider = ({ children }) => {
         students,
         setStudents,
         drawerWidth,
-        onAddStudent,
+        reviewers,
+        setReviewers,
+        // onAddStudent,
       }}
     >
       {children}

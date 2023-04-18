@@ -1,16 +1,10 @@
-import { ArrowRight, TurnedInNot } from "@mui/icons-material";
-import {
-  Divider,
-  Grid,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Grid } from "@mui/material";
+import { ReviewerItem } from "../components/ReviewerItem";
+import { useContext, useState } from "react";
+import { ReviewerContext } from "../components/context/Reviewercontext";
 
 export const ReviewersTable = () => {
+  const { reviewers } = useContext(ReviewerContext);
   return (
     <Grid
       container
@@ -29,6 +23,7 @@ export const ReviewersTable = () => {
         direction="row"
         alignItems="center"
         justifyContent="center"
+        flexWrap="noWrap"
         sx={{
           backgroundColor: "white",
           border: "1px solid black",
@@ -36,83 +31,9 @@ export const ReviewersTable = () => {
           margin: "40px",
         }}
       >
-        <Grid
-          item
-          xs={4}
-          sx={{
-            borderRight: "1px solid black",
-            minHeight: "300px",
-          }}
-        >
-          {" "}
-          <Typography color="black" variant="h5" textAlign="center">
-            Luis
-          </Typography>
-          <Divider />
-          <List>
-            {["Enrique Mauricio", "Carlos Calderon"].map((text) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <ArrowRight />
-                  </ListItemIcon>
-                  <Grid container>
-                    <ListItemText primary={text} />
-                  </Grid>
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Grid>
-        <Grid item xs={4} sx={{ minHeight: "300px" }}>
-          {" "}
-          <Typography color="black" variant="h5" textAlign="center">
-            Marcelo
-          </Typography>{" "}
-          <Divider />
-          <List>
-            {["Oswaldo Chan", "Kevin Medina"].map((text) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <ArrowRight />
-                  </ListItemIcon>
-                  <Grid container>
-                    <ListItemText primary={text} />
-                  </Grid>
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Grid>
-        <Grid
-          item
-          xs={4}
-          sx={{
-            borderLeft: "1px solid black",
-            minHeight: "300px",
-          }}
-        >
-          {" "}
-          <Typography color="black" variant="h5" textAlign="center">
-            Fernando
-          </Typography>{" "}
-          <Divider />
-          <List>
-            {["Cristian Pan", "Carlos May", "Alfonso Tort"].map((text) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <ArrowRight />
-                  </ListItemIcon>
-                  <Grid container>
-                    <ListItemText primary={text} />
-                  </Grid>
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Grid>
+        {reviewers.map((reviewer) => (
+          <ReviewerItem key={reviewer} reviewer={reviewer} />
+        ))}
       </Grid>
     </Grid>
   );

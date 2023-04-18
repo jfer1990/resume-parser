@@ -6,10 +6,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ReviewerContext } from "../components/context/Reviewercontext";
 
 export const AddReviewerInput = () => {
-  const [inputValue, setInputValue] = useState("Gabriel");
+  const { setReviewers } = useContext(ReviewerContext);
+  const [inputValue, setInputValue] = useState("");
 
   const OnInputChange = ({ target }) => {
     setInputValue(target.value);
@@ -17,7 +19,7 @@ export const AddReviewerInput = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(inputValue);
+    setReviewers((reviewers) => [...reviewers, inputValue]);
   };
   return (
     <Grid
@@ -47,7 +49,12 @@ export const AddReviewerInput = () => {
               sx={{ border: "none", mb: 1 }}
             />
             <Grid item alignSelf="flex-end">
-              <Button color="primary" sx={{ padding: 2 }}>
+              <Button
+                type="submit"
+                color="primary"
+                onClick={onSubmit}
+                sx={{ padding: 2 }}
+              >
                 <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
                 Guardar
               </Button>
