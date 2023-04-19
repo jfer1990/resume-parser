@@ -6,7 +6,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { ArrowRight } from "@mui/icons-material";
+import { PersonOutline } from "@mui/icons-material";
 
 export const StudentItem = ({ student }) => {
   return (
@@ -14,7 +14,7 @@ export const StudentItem = ({ student }) => {
       <ListItem key={student} disablePadding>
         <ListItemButton>
           <ListItemIcon>
-            <ArrowRight />
+            <PersonOutline />
           </ListItemIcon>
           <Grid container>
             <ListItemText primary={student} />

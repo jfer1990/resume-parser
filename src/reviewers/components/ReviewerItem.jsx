@@ -1,4 +1,4 @@
-import { ArrowRight } from "@mui/icons-material";
+import { PersonOutline } from "@mui/icons-material";
 import {
   Divider,
   Grid,
@@ -30,7 +30,7 @@ export const ReviewerItem = ({ reviewer }) => {
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <ArrowRight />
+                <PersonOutline />
               </ListItemIcon>
               <Grid container>
                 <ListItemText primary={text} />
