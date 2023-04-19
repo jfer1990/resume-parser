@@ -12,6 +12,7 @@ import { AddOutlined } from "@mui/icons-material";
 import { StudentItem } from "./StudentItem";
 import { useContext } from "react";
 import { ReviewerContext } from "./context/Reviewercontext";
+import { Link } from "react-router-dom";
 
 export const SideBar = () => {
   const { drawerWidth, students } = useContext(ReviewerContext);
@@ -42,6 +43,8 @@ export const SideBar = () => {
           ))}
         </List>
         <IconButton
+          component={Link}
+          to="/addStudent"
           size="large"
           sx={{
             color: "white",

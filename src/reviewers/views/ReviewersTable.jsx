@@ -13,7 +13,7 @@ export const ReviewersTable = () => {
       alignItems="center"
       justifyContent="center"
       sx={{
-        minHeight: "100vh",
+        minHeight: "calc(100vh - 110px)",
         backgroundColor: "primary.main",
         borderRadius: 3,
       }}

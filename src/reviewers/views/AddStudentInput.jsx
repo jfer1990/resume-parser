@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { ReviewerContext } from "../components/context/Reviewercontext";
+import { useNavigate } from "react-router-dom";
 
 export const AddStudentInput = () => {
   const { setStudents } = useContext(ReviewerContext);
@@ -21,7 +22,9 @@ export const AddStudentInput = () => {
     event.preventDefault();
     console.log(inputValue);
     setStudents((students) => [...students, inputValue]);
+    navigate("/");
   };
+  const navigate = useNavigate();
   return (
     <Grid
       container

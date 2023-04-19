@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { ReviewerContext } from "../components/context/Reviewercontext";
+import { Link, useNavigate } from "react-router-dom";
 
 export const AddReviewerInput = () => {
   const { setReviewers } = useContext(ReviewerContext);
@@ -20,7 +21,9 @@ export const AddReviewerInput = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     setReviewers((reviewers) => [...reviewers, inputValue]);
+    navigate("/");
   };
+  const navigate = useNavigate();
   return (
     <Grid
       container
@@ -50,6 +53,8 @@ export const AddReviewerInput = () => {
             />
             <Grid item alignSelf="flex-end">
               <Button
+                component={Link}
+                to="/"
                 type="submit"
                 color="primary"
                 onClick={onSubmit}
