@@ -1,6 +1,6 @@
 import { PersonOutline } from "@mui/icons-material";
 import {
-  Divider,
+  Box,
   Grid,
   List,
   ListItem,
@@ -17,23 +17,27 @@ export const ReviewerItem = ({ reviewer }) => {
       item
       xs={4}
       sx={{
-        borderRight: "1px solid black",
+        // borderRight: "1px solid black",
         minHeight: "300px",
       }}
     >
-      <Typography color="black" variant="h5" textAlign="center">
-        {reviewer}
-      </Typography>
-      <Divider />
-      <List>
+      <Box
+        sx={{ background: "#5C5B85", borderRadius: 3, margin: 1, padding: 1 }}
+      >
+        <Typography color="white" variant="h6" textAlign="center">
+          {reviewer}
+        </Typography>
+      </Box>
+      {/* <Divider /> */}
+      <List sx={{ background: "white", borderRadius: 3, margin: 1 }}>
         {["Enrique Mauricio", "Carlos Calderon"].map((text) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <PersonOutline />
+                <PersonOutline sx={{ color: "primary.main" }} />
               </ListItemIcon>
               <Grid container>
-                <ListItemText primary={text} />
+                <ListItemText sx={{ marginLeft: 14 }} primary={text} />
               </Grid>
             </ListItemButton>
           </ListItem>

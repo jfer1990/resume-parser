@@ -14,7 +14,7 @@ export const StudentItem = ({ student }) => {
       <ListItem key={student} disablePadding>
         <ListItemButton>
           <ListItemIcon>
-            <PersonOutline />
+            <PersonOutline sx={{ color: "primary.main" }} />
           </ListItemIcon>
           <Grid container>
             <ListItemText primary={student} />

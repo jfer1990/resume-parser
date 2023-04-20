@@ -50,7 +50,17 @@ export const AddStudentInput = () => {
               label="nombre:"
               value={inputValue}
               onChange={OnInputChange}
-              sx={{ border: "none", mb: 1 }}
+              sx={{ border: "none", mb: 3, mt: 3 }}
+            />
+            <TextField
+              type="text"
+              variant="filled"
+              fullWidth
+              placeholder="Ingrese un correo"
+              label="correo:"
+              value={inputValue}
+              // onChange={OnInputChange}
+              sx={{ border: "none", mb: 3 }}
             />
             <Grid item alignSelf="flex-end">
               <Button

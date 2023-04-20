@@ -25,10 +25,10 @@ export const ReviewersTable = () => {
         justifyContent="center"
         flexWrap="noWrap"
         sx={{
-          backgroundColor: "white",
-          border: "1px solid black",
+          // backgroundColor: "white",
           borderRadius: 3,
           margin: "40px",
+          overflow: "hidden",
         }}
       >
         {reviewers.map((reviewer) => (
