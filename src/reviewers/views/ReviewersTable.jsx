@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { ReviewerItem } from "../components/ReviewerItem";
 import { useContext, useState } from "react";
 import { ReviewerContext } from "../components/context/Reviewercontext";
@@ -6,8 +6,8 @@ import { ReviewerContext } from "../components/context/Reviewercontext";
 export const ReviewersTable = () => {
   const { reviewers } = useContext(ReviewerContext);
   return (
-    <Grid
-      container
+    <Box
+      display="flex"
       spacing={0}
       direction="row"
       alignItems="center"
@@ -20,10 +20,10 @@ export const ReviewersTable = () => {
     >
       <Grid
         container
-        direction="row"
         alignItems="center"
         justifyContent="center"
-        flexWrap="noWrap"
+        gridTemplateColumns="repeat(auto-fit, minmax(160px, 250px))"
+        // grid-template-columns repeat(auto-fit, minmax(160px, 250px));
         sx={{
           // backgroundColor: "white",
           borderRadius: 3,
@@ -32,9 +32,12 @@ export const ReviewersTable = () => {
         }}
       >
         {reviewers.map((reviewer) => (
-          <ReviewerItem key={reviewer} reviewer={reviewer} />
+          <ReviewerItem
+            key={JSON.stringify(reviewer)}
+            reviewer={reviewer.name}
+          />
         ))}
       </Grid>
-    </Grid>
+    </Box>
   );
 };

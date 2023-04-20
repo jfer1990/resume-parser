@@ -8,16 +8,20 @@ export const ReviewerContext = createContext();
 export const ReviewerProvider = ({ children }) => {
   const drawerWidth = 280;
   const [students, setStudents] = useState([
-    "Enrique Mauricio",
-    "Carlos Calderon",
-    "Oswaldo Chan",
-    "Kevin Medina",
-    "Cristian Pan",
-    "Carlos May",
-    "Fernando joachin",
+    { name: "Enrique Mauricio", email: null },
+    { name: "Carlos Calderon", email: null },
+    { name: "Oswaldo Chan", email: null },
+    { name: "Kevin Medina", email: null },
+    { name: "Cristian Pan", email: null },
+    { name: "Carlos May", email: null },
+    { name: "Fernando joachin", email: null },
   ]);
 
-  const [reviewers, setReviewers] = useState(["Luis", "marcelo", "Fernando"]);
+  const [reviewers, setReviewers] = useState([
+    { name: "Luis", email: null },
+    { name: "Marcelo", email: null },
+    { name: "Fernando", email: null },
+  ]);
 
   // const onAddStudent = () => {
   //   setStudents([...students, "hola"]);

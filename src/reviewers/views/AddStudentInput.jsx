@@ -12,16 +12,22 @@ import { useNavigate } from "react-router-dom";
 
 export const AddStudentInput = () => {
   const { setStudents } = useContext(ReviewerContext);
-  const [inputValue, setInputValue] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+  });
 
-  const OnInputChange = ({ target }) => {
-    setInputValue(target.value);
+  const OnInputChange = ({ target: { name, value } }) => {
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(inputValue);
-    setStudents((students) => [...students, inputValue]);
+    // console.log(inputValue);
+    setStudents((students) => [...students, form]);
     navigate("/");
   };
   const navigate = useNavigate();
@@ -43,23 +49,25 @@ export const AddStudentInput = () => {
         <form onSubmit={onSubmit}>
           <FormControl fullWidth>
             <TextField
+              name="name"
               type="text"
               variant="filled"
               fullWidth
               placeholder="Ingrese un nombre"
               label="nombre:"
-              value={inputValue}
+              value={form.name}
               onChange={OnInputChange}
               sx={{ border: "none", mb: 3, mt: 3 }}
             />
             <TextField
+              name="email"
               type="text"
               variant="filled"
               fullWidth
               placeholder="Ingrese un correo"
               label="correo:"
-              value={inputValue}
-              // onChange={OnInputChange}
+              value={form.email}
+              onChange={OnInputChange}
               sx={{ border: "none", mb: 3 }}
             />
             <Grid item alignSelf="flex-end">
