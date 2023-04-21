@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-export const ReviewerItem = ({ reviewer }) => {
+export const ReviewerItem = ({ reviewer, members = [] }) => {
   return (
     <Grid
       item
@@ -30,14 +30,14 @@ export const ReviewerItem = ({ reviewer }) => {
       </Box>
       {/* <Divider /> */}
       <List sx={{ background: "white", borderRadius: 3, margin: 1 }}>
-        {["Enrique Mauricio", "Carlos Calderon"].map((text) => (
-          <ListItem key={text} disablePadding>
+        {members.map((member) => (
+          <ListItem key={JSON.stringify(member)} disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 <PersonOutline sx={{ color: "primary.main" }} />
               </ListItemIcon>
               <Grid container>
-                <ListItemText sx={{ marginLeft: 14 }} primary={text} />
+                <ListItemText sx={{ marginLeft: 14 }} primary={member.name} />
               </Grid>
             </ListItemButton>
           </ListItem>

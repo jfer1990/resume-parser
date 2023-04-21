@@ -1,10 +1,26 @@
 import { Box, Grid } from "@mui/material";
 import { ReviewerItem } from "../components/ReviewerItem";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ReviewerContext } from "../components/context/Reviewercontext";
 
 export const ReviewersTable = () => {
+  const [reviewItems, setReviewItems] = useState([]); 
   const { reviewers } = useContext(ReviewerContext);
+
+  useEffect(()=>{
+    (async ()=>{
+      try{
+        const assignmentsPath = "http://localhost:8080" + "/api/reviewers/getTodayCandidates"
+        const response = await fetch(assignmentsPath); 
+        const {assignments} = await response.json(); 
+        console.log("assignments", assignments); 
+        setReviewItems(prev => [...assignments.map(assignment => ({name:assignment.reviewer.name, members:assignment.reviewer.assigned_candidates}))]);//change for students 
+      }
+      catch(e){
+        console.log("error", e); 
+      }
+    })(); 
+  },[])
   return (
     <Box
       display="flex"
@@ -31,10 +47,11 @@ export const ReviewersTable = () => {
           overflow: "hidden",
         }}
       >
-        {reviewers.map((reviewer) => (
+        {reviewItems.map((reviewer) => (
           <ReviewerItem
             key={JSON.stringify(reviewer)}
             reviewer={reviewer.name}
+            members={reviewer.members}
           />
         ))}
       </Grid>
