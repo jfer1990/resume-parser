@@ -16,7 +16,7 @@ export const ReviewPage = () => {
 
         <IconButton
           component={Link}
-          to="/addReviewer"
+          to="/add-reviewer"
           size="large"
           sx={{
             color: "white",

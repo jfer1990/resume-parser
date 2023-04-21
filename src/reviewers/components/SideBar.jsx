@@ -39,12 +39,16 @@ export const SideBar = () => {
 
         <List>
           {students.map((student) => (
-            <StudentItem key={student} student={student} />
+            <StudentItem
+              key={JSON.stringify(student)}
+              student={student.name}
+              studentEmail={student.email}
+            />
           ))}
         </List>
         <IconButton
           component={Link}
-          to="/addStudent"
+          to="/add-student"
           size="large"
           sx={{
             color: "white",

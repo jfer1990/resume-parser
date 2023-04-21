@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { PersonOutline } from "@mui/icons-material";
 
-export const StudentItem = ({ student }) => {
+export const StudentItem = ({ student, studentEmail }) => {
   return (
     <>
       <ListItem key={student} disablePadding>
@@ -18,9 +18,7 @@ export const StudentItem = ({ student }) => {
           </ListItemIcon>
           <Grid container>
             <ListItemText primary={student} />
-            <ListItemText
-              secondary={"Exercitation cillum irure elit consectetur."}
-            />
+            <ListItemText secondary={studentEmail} />
           </Grid>
         </ListItemButton>
       </ListItem>
