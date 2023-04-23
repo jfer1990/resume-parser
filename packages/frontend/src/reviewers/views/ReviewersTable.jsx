@@ -1,26 +1,30 @@
-import { Box, Grid } from "@mui/material";
-import { ReviewerItem } from "../components/ReviewerItem";
-import { useContext, useEffect, useState } from "react";
-import { ReviewerContext } from "../components/context/Reviewercontext";
+import { Box, Grid } from '@mui/material';
+import { ReviewerItem } from '../components/ReviewerItem';
+import { useContext, useEffect, useState } from 'react';
+import { ReviewerContext } from '../components/context/Reviewercontext';
 
 export const ReviewersTable = () => {
-  const [reviewItems, setReviewItems] = useState([]); 
+  const [reviewItems, setReviewItems] = useState([]);
   const { reviewers } = useContext(ReviewerContext);
 
-  useEffect(()=>{
-    (async ()=>{
-      try{
-        const assignmentsPath = "http://localhost:8080" + "/api/reviewers/getTodayCandidates"
-        const response = await fetch(assignmentsPath); 
-        const {assignments} = await response.json(); 
-        console.log("assignments", assignments); 
-        setReviewItems(prev => [...assignments.map(assignment => ({name:assignment.reviewer.name, members:assignment.reviewer.assigned_candidates}))]);//change for students 
+  useEffect(() => {
+    (async () => {
+      try {
+        const assignmentsPath = 'http://localhost:8080' + '/api/reviewers/getTodayCandidates';
+        const response = await fetch(assignmentsPath);
+        const { assignments } = await response.json();
+        console.log('assignments', assignments);
+        setReviewItems((prev) => [
+          ...assignments.map((assignment) => ({
+            name: assignment.reviewer.name,
+            members: assignment.reviewer.assigned_candidates,
+          })),
+        ]); //change for students
+      } catch (e) {
+        console.log('error', e);
       }
-      catch(e){
-        console.log("error", e); 
-      }
-    })(); 
-  },[])
+    })();
+  }, []);
   return (
     <Box
       display="flex"
@@ -29,8 +33,8 @@ export const ReviewersTable = () => {
       alignItems="center"
       justifyContent="center"
       sx={{
-        minHeight: "calc(100vh - 110px)",
-        backgroundColor: "primary.main",
+        minHeight: 'calc(100vh - 110px)',
+        backgroundColor: 'primary.main',
         borderRadius: 3,
       }}
     >
@@ -43,16 +47,12 @@ export const ReviewersTable = () => {
         sx={{
           // backgroundColor: "white",
           borderRadius: 3,
-          margin: "40px",
-          overflow: "hidden",
+          margin: '40px',
+          overflow: 'hidden',
         }}
       >
         {reviewItems.map((reviewer) => (
-          <ReviewerItem
-            key={JSON.stringify(reviewer)}
-            reviewer={reviewer.name}
-            members={reviewer.members}
-          />
+          <ReviewerItem key={JSON.stringify(reviewer)} reviewer={reviewer.name} members={reviewer.members} />
         ))}
       </Grid>
     </Box>

@@ -1,8 +1,8 @@
-import { Link, Route, Routes } from "react-router-dom";
-import { ReviewersTable } from "../reviewers/views/ReviewersTable";
-import { AddReviewerInput } from "../reviewers/views/AddReviewerInput";
+import { Link, Route, Routes } from 'react-router-dom';
+import { ReviewersTable } from '../reviewers/views/ReviewersTable';
+import { AddReviewerInput } from '../reviewers/views/AddReviewerInput';
 
-import { AddStudentInput } from "../reviewers/views/AddStudentInput";
+import { AddStudentInput } from '../reviewers/views/AddStudentInput';
 
 export const AppRouter = () => {
   return (

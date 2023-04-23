@@ -1,20 +1,14 @@
-import { SaveOutlined } from "@mui/icons-material";
-import {
-  Button,
-  FormControl,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { useContext, useState } from "react";
-import { ReviewerContext } from "../components/context/Reviewercontext";
-import { useNavigate } from "react-router-dom";
+import { SaveOutlined } from '@mui/icons-material';
+import { Button, FormControl, Grid, TextField, Typography } from '@mui/material';
+import { useContext, useState } from 'react';
+import { ReviewerContext } from '../components/context/Reviewercontext';
+import { useNavigate } from 'react-router-dom';
 
 export const AddStudentInput = () => {
   const { setStudents } = useContext(ReviewerContext);
   const [form, setForm] = useState({
-    name: "",
-    email: "",
+    name: '',
+    email: '',
   });
 
   const OnInputChange = ({ target: { name, value } }) => {
@@ -28,17 +22,11 @@ export const AddStudentInput = () => {
     event.preventDefault();
     // console.log(inputValue);
     setStudents((students) => [...students, form]);
-    navigate("/");
+    navigate('/');
   };
   const navigate = useNavigate();
   return (
-    <Grid
-      container
-      direction="row"
-      justifyContent="space-between"
-      alignItems="center"
-      sx={{ mb: 1 }}
-    >
+    <Grid container direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
       <Grid item>
         <Typography fontSize={39} fontWeight="light">
           Agregar un Estudiante:
@@ -57,7 +45,7 @@ export const AddStudentInput = () => {
               label="nombre:"
               value={form.name}
               onChange={OnInputChange}
-              sx={{ border: "none", mb: 3, mt: 3 }}
+              sx={{ border: 'none', mb: 3, mt: 3 }}
             />
             <TextField
               name="email"
@@ -68,15 +56,10 @@ export const AddStudentInput = () => {
               label="correo:"
               value={form.email}
               onChange={OnInputChange}
-              sx={{ border: "none", mb: 3 }}
+              sx={{ border: 'none', mb: 3 }}
             />
             <Grid item alignSelf="flex-end">
-              <Button
-                type="submit"
-                color="primary"
-                onClick={onSubmit}
-                sx={{ padding: 2 }}
-              >
+              <Button type="submit" color="primary" onClick={onSubmit} sx={{ padding: 2 }}>
                 <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
                 Guardar
               </Button>

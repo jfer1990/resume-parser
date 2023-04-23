@@ -1,3 +1,3 @@
-export * from "./AddReviewerInput";
-export * from "./AddStudentInput";
-export * from "./ReviewersTable";
+export * from './AddReviewerInput';
+export * from './AddStudentInput';
+export * from './ReviewersTable';

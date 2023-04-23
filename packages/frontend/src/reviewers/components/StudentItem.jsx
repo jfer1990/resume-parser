@@ -1,12 +1,6 @@
-import React from "react";
-import {
-  Grid,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
-import { PersonOutline } from "@mui/icons-material";
+import React from 'react';
+import { Grid, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { PersonOutline } from '@mui/icons-material';
 
 export const StudentItem = ({ student, studentEmail }) => {
   return (
@@ -14,7 +8,7 @@ export const StudentItem = ({ student, studentEmail }) => {
       <ListItem key={student} disablePadding>
         <ListItemButton>
           <ListItemIcon>
-            <PersonOutline sx={{ color: "primary.main" }} />
+            <PersonOutline sx={{ color: 'primary.main' }} />
           </ListItemIcon>
           <Grid container>
             <ListItemText primary={student} />

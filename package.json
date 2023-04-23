@@ -1,10 +1,21 @@
 {
-  "name": "root",
-  "private":"true",
+  "name": "@lugamafe/team-pr-tracker",
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "format": "prettier --write 'packages/**/*.{js,jsx,ts,tsx,css,scss,json}'",
+    "format:check": "prettier --check 'packages/**/*.{js,jsx,ts,tsx,css,scss,json}'",
+    "lint": "eslint --fix 'packages/**/*.{js,jsx,ts,tsx}'"
+  },
   "devDependencies": {
-    "lerna": "^6.6.1"
+    "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
+    "lerna": "^6.6.1",
+    "prettier": "^2.8.7"
+  },
+  "volta": {
+    "node": "18.14.0",
+    "yarn": "3.4.1"
   }
 }
