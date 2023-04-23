@@ -1,9 +1,7 @@
 name: Lint and Format
 
 on:
-  push:
   pull_request:
-    branches: [main]
   workflow_dispatch:
 
 # Cancel any previous workflow that is still running
@@ -19,10 +17,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.14.0
+    - name: volta-cli/action
+      uses: volta-cli/action@v4.0.0
 
     - name: Install dependencies
       run: yarn install
