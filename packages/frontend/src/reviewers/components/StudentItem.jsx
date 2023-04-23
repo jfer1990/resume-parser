@@ -1,8 +1,8 @@
-import React from 'react';
 import { Grid, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { PersonOutline } from '@mui/icons-material';
+import PropTypes from 'prop-types';
 
-export const StudentItem = ({ student, studentEmail }) => {
+const StudentItem = ({ student, studentEmail }) => {
   return (
     <>
       <ListItem key={student} disablePadding>
@@ -19,3 +19,10 @@ export const StudentItem = ({ student, studentEmail }) => {
     </>
   );
 };
+
+StudentItem.propTypes = {
+  student: PropTypes.string.isRequired,
+  studentEmail: PropTypes.string.isRequired,
+};
+
+export { StudentItem };

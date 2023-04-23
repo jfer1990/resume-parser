@@ -1,12 +1,12 @@
 import moment from 'moment/moment.js';
-import { readFileSync, existsSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import Candidate from '../models/candidate.js';
 import Reviewer from '../models/reviewer.js';
 import Revision from '../models/revision.js';
 
 const getAllCandidates = async () => {
-  const candidates_result = await Candidate.find();
-  const candidates = [...candidates_result].map((cand) => {
+  const candidatesResult = await Candidate.find();
+  const candidates = [...candidatesResult].map((cand) => {
     console.log('cand', cand);
 
     const { _id, name, email } = cand;
@@ -19,8 +19,8 @@ const getAllCandidates = async () => {
 };
 
 const getAllReviewers = async () => {
-  const all_reviewers = await Reviewer.find();
-  const reviewers = [...all_reviewers].map((reviewer) => {
+  const allReviewers = await Reviewer.find();
+  const reviewers = [...allReviewers].map((reviewer) => {
     const { email, name, _id } = reviewer;
     const id = _id.toString();
     return { email, name, id };

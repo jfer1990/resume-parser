@@ -12,10 +12,10 @@ const CandidateSchema = Schema({
   },
 });
 
-//Return the whole object but the  __v attributes
+// Return the whole object but the  __v attributes
 CandidateSchema.methods.toJSON = function () {
-  const { __v, ...candidate_rest } = this.toObject();
-  return candidate_rest;
+  const { ...candidateRest } = this.toObject();
+  return candidateRest;
 };
 
 export default model('Candidate', CandidateSchema);

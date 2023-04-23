@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { ReviewersTable } from '../reviewers/views/ReviewersTable';
 import { AddReviewerInput } from '../reviewers/views/AddReviewerInput';
 

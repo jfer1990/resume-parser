@@ -23,12 +23,18 @@ const postReviewer = async (req, res = response) => {
       msg: 'post API user - controller',
       reviewer,
     });
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const putReviewer = async (req, res = response) => {
   const { id } = req.params;
-  const { _id, email, ...rest } = req.body;
+  const {
+    // _id,
+    // email,
+    ...rest
+  } = req.body;
 
   const reviewer = await Reviewer.findByIdAndUpdate(id, rest).exec();
 
@@ -45,8 +51,8 @@ const deleteReviewer = (req, res = response) => {
 };
 
 const getAll = async (req, res = response) => {
-  const all_reviewers = await Reviewer.find();
-  const reviewers = [...all_reviewers].map((reviewer) => {
+  const allReviewers = await Reviewer.find();
+  const reviewers = [...allReviewers].map((reviewer) => {
     const { email, name, _id } = reviewer;
     const id = _id.toString();
     return { email, name, id };
@@ -62,10 +68,11 @@ const getCandidates = async (req, res = response) => {
   const { id: reviewerID } = req.params;
 
   // const reviewer = await Reviewer.findById(reviewerID).exec();
-  const allRevisions = await Revision.find(); //findall no funciona
+  const allRevisions = await Revision.find(); // findall no funciona
   const candidates = [...allRevisions].find((revision) => {
     const { reviewer, candidates } = revision;
     if (reviewer.toString() === reviewerID) return candidates;
+    return false;
   });
 
   res.json({
@@ -75,8 +82,8 @@ const getCandidates = async (req, res = response) => {
 };
 
 const getAllAsigns = async (req, res = response) => {
-  const all_reviewers = await Reviewer.find();
-  const reviewers = [...all_reviewers].map((reviewer) => {
+  const allReviewers = await Reviewer.find();
+  const reviewers = [...allReviewers].map((reviewer) => {
     const { email, name, _id } = reviewer;
     const id = _id.toString();
     return { email, name, id };
@@ -89,10 +96,10 @@ const getAllAsigns = async (req, res = response) => {
 };
 
 const saveAssignments = async (candidates, reviewerID, reviewerObject) => {
-  //esto es parte del controlador? o es un helper?
+  // esto es parte del controlador? o es un helper?
   try {
     if (!candidates || !reviewerID) return;
-    //Checa si el reviewerID ya tiene un documento para el día de hoy
+    // Checa si el reviewerID ya tiene un documento para el día de hoy
     const today = moment().startOf('day').toDate();
     const reviewer = new mongoose.Types.ObjectId(reviewerID);
     const existAssignment = await Revision.findOne({ reviewerID: reviewer, date: today }).exec();
@@ -111,7 +118,7 @@ const saveAssignments = async (candidates, reviewerID, reviewerObject) => {
 
 const getTodayRevision = async (req, res = response) => {
   function shuffle(array) {
-    //saca esta función de aquí!!! aumenta complejidad ciclomática
+    // saca esta función de aquí!!! aumenta complejidad ciclomática
     array.sort(() => Math.random() - 0.5);
   }
 
@@ -119,7 +126,7 @@ const getTodayRevision = async (req, res = response) => {
   const { reviewers } = await getAllReviewers();
 
   const candidatesPerReviewer = candidates.length / reviewers.length;
-  let candidatesOffset = candidates.length % reviewers.length;
+  const candidatesOffset = candidates.length % reviewers.length;
 
   shuffle(candidates);
   shuffle(reviewers);
@@ -128,7 +135,7 @@ const getTodayRevision = async (req, res = response) => {
 
   let candidatesFrom = 0;
   let candidatesTo = candidatesPerReviewer;
-  //refactorizar-> modularizar y bajar complejidad ciclomática y de comprensión.
+  // refactorizar-> modularizar y bajar complejidad ciclomática y de comprensión.
   const assignments = await Promise.all(
     reviewers.map(async (reviewer) => {
       if (candidatesOffset > 0) {

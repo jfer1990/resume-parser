@@ -1,9 +1,9 @@
 import { Box, Toolbar } from '@mui/material';
-import React from 'react';
 import { NavBar } from '../NavBar';
 import { SideBar } from '../SideBar';
+import PropTypes from 'prop-types';
 
-export const ReviewerLayaout = ({ children }) => {
+const ReviewerLayaout = ({ children }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <NavBar />
@@ -15,3 +15,9 @@ export const ReviewerLayaout = ({ children }) => {
     </Box>
   );
 };
+
+ReviewerLayaout.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+};
+
+export { ReviewerLayaout };

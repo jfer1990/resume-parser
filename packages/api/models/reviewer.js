@@ -12,10 +12,10 @@ const ReviewerSchema = Schema({
   },
 });
 
-//Return the whole object but the  __v attributes
+// Return the whole object but the  __v attributes
 ReviewerSchema.methods.toJSON = function () {
-  const { __v, ...reviewer_rest } = this.toObject();
-  return reviewer_rest;
+  const { ...reviewerRest } = this.toObject();
+  return reviewerRest;
 };
 
 export default model('Reviewer', ReviewerSchema);

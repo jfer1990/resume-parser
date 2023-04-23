@@ -1,11 +1,9 @@
-import { Toolbar } from '@mui/material';
-import { Box } from '@mui/system';
-import { NavBar, SideBar } from '..';
 import { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
-export const ReviewerContext = createContext();
+export const ReviewerContext = createContext({});
 
-export const ReviewerProvider = ({ children }) => {
+const ReviewerProvider = ({ children }) => {
   const drawerWidth = 280;
   const [students, setStudents] = useState([
     { name: 'Enrique Mauricio', email: null },
@@ -43,3 +41,9 @@ export const ReviewerProvider = ({ children }) => {
     </ReviewerContext.Provider>
   );
 };
+
+ReviewerProvider.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+};
+
+export { ReviewerProvider };

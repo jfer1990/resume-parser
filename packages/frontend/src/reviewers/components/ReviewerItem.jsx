@@ -1,8 +1,8 @@
 import { PersonOutline } from '@mui/icons-material';
 import { Box, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
-import React from 'react';
+import PropTypes from 'prop-types';
 
-export const ReviewerItem = ({ reviewer, members = [] }) => {
+const ReviewerItem = ({ reviewer, members = [] }) => {
   return (
     <Grid
       item
@@ -35,3 +35,18 @@ export const ReviewerItem = ({ reviewer, members = [] }) => {
     </Grid>
   );
 };
+
+ReviewerItem.propTypes = {
+  reviewer: PropTypes.string.isRequired,
+  members: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    })
+  ),
+};
+
+ReviewerItem.defaultProps = {
+  members: [],
+};
+
+export { ReviewerItem };

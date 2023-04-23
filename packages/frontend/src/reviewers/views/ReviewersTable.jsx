@@ -1,11 +1,9 @@
 import { Box, Grid } from '@mui/material';
 import { ReviewerItem } from '../components/ReviewerItem';
-import { useContext, useEffect, useState } from 'react';
-import { ReviewerContext } from '../components/context/Reviewercontext';
+import { useEffect, useState } from 'react';
 
 export const ReviewersTable = () => {
   const [reviewItems, setReviewItems] = useState([]);
-  const { reviewers } = useContext(ReviewerContext);
 
   useEffect(() => {
     (async () => {
@@ -19,7 +17,7 @@ export const ReviewersTable = () => {
             name: assignment.reviewer.name,
             members: assignment.reviewer.assigned_candidates,
           })),
-        ]); //change for students
+        ]); // change for students
       } catch (e) {
         console.log('error', e);
       }

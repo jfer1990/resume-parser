@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import candidate_route from '../routes/candidates.js';
-import reviewer_route from '../routes/reviewers.js';
+import candidateRoute from '../routes/candidates.js';
+import reviewerRoute from '../routes/reviewers.js';
 import dbConnection from '../db/config.js';
 
 class Server {
@@ -9,25 +9,26 @@ class Server {
     this.app = express();
     this.port = process.env.PORT;
 
-    //connect db
+    // connect db
     this.connectDB();
 
-    //Middlewares
+    // Middlewares
     this.middlewares();
 
-    //Rutas de mi app
+    // Rutas de mi app
     this.routes();
   }
+
   routes() {
-    this.app.use('/api/reviewers', reviewer_route);
-    this.app.use('/api/candidates', candidate_route);
+    this.app.use('/api/reviewers', reviewerRoute);
+    this.app.use('/api/candidates', candidateRoute);
   }
 
   middlewares() {
     this.app.use(express.static('public'));
     this.app.use(cors());
 
-    //Lectura y parseo
+    // Lectura y parseo
     this.app.use(express.json());
   }
 

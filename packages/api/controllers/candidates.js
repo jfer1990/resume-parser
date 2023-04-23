@@ -19,12 +19,18 @@ const postCandidate = async (req, res = response) => {
       msg: 'post API user - controller',
       candidate,
     });
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const putCandidate = async (req, res = response) => {
   const { id } = req.params;
-  const { _id, email, ...rest } = req.body;
+  const {
+    // _id,
+    // email,
+    ...rest
+  } = req.body;
 
   const user = await Candidate.findByIdAndUpdate(id, rest).exec();
 
@@ -41,8 +47,8 @@ const deleteCandidate = (req, res = response) => {
 };
 
 const getAll = async (req, res = response) => {
-  const candidates_result = await Candidate.find();
-  const candidates = [...candidates_result].map((cand) => {
+  const candidatesResult = await Candidate.find();
+  const candidates = [...candidatesResult].map((cand) => {
     console.log('cand', cand);
 
     const { _id, name, email } = cand;
