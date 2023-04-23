@@ -12,7 +12,7 @@ export const ReviewersTable = () => {
         const response = await fetch(assignmentsPath);
         const { assignments } = await response.json();
         console.log('assignments', assignments);
-        setReviewItems((prev) => [
+        setReviewItems(() => [
           ...assignments.map((assignment) => ({
             name: assignment.reviewer.name,
             members: assignment.reviewer.assigned_candidates,
