@@ -1,6 +1,10 @@
 name: Lint and Format
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
 
 # Cancel any previous workflow that is still running
 concurrency:
