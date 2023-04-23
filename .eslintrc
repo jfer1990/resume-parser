@@ -15,5 +15,8 @@
     "react": {
       "version": "detect"
     }
+  },
+  "rules": {
+    "no-unused-vars": ["error", { "ignoreRestSiblings": true }]
   }
 }

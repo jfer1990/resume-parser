@@ -30,11 +30,7 @@ const postReviewer = async (req, res = response) => {
 
 const putReviewer = async (req, res = response) => {
   const { id } = req.params;
-  const {
-    // _id,
-    // email,
-    ...rest
-  } = req.body;
+  const { _id, email, ...rest } = req.body;
 
   const reviewer = await Reviewer.findByIdAndUpdate(id, rest).exec();
 

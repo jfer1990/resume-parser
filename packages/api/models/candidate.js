@@ -14,7 +14,7 @@ const CandidateSchema = Schema({
 
 // Return the whole object but the  __v attributes
 CandidateSchema.methods.toJSON = function () {
-  const { ...candidateRest } = this.toObject();
+  const { __v, ...candidateRest } = this.toObject();
   return candidateRest;
 };
 

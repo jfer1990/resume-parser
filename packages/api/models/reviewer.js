@@ -14,7 +14,7 @@ const ReviewerSchema = Schema({
 
 // Return the whole object but the  __v attributes
 ReviewerSchema.methods.toJSON = function () {
-  const { ...reviewerRest } = this.toObject();
+  const { __v, ...reviewerRest } = this.toObject();
   return reviewerRest;
 };
 
