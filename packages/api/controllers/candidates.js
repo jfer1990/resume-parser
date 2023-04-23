@@ -26,11 +26,7 @@ const postCandidate = async (req, res = response) => {
 
 const putCandidate = async (req, res = response) => {
   const { id } = req.params;
-  const {
-    // _id,
-    // email,
-    ...rest
-  } = req.body;
+  const { _id, email, ...rest } = req.body;
 
   const user = await Candidate.findByIdAndUpdate(id, rest).exec();
 
