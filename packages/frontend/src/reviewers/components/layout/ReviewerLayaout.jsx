@@ -1,7 +1,7 @@
 import { Box, Toolbar } from '@mui/material';
+import PropTypes from 'prop-types';
 import { NavBar } from '../NavBar';
 import { SideBar } from '../SideBar';
-import PropTypes from 'prop-types';
 
 const ReviewerLayaout = ({ children }) => {
   return (

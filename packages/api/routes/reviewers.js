@@ -1,15 +1,15 @@
 import { Router } from 'express';
+import { check } from 'express-validator';
 import {
-  getReviewer,
+  deleteReviewer,
+  getAll,
   getAllAsigns,
   getCandidates,
-  getAll,
+  getReviewer,
+  getTodayRevision,
   postReviewer,
   putReviewer,
-  deleteReviewer,
-  getTodayRevision,
 } from '../controllers/reviewers.js';
-import { check } from 'express-validator';
 // import validarCampos from '../middlewares/validar-campos.js'
 import { existCandidateEmail } from '../helpers/db-validators.js';
 

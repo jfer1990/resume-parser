@@ -1,7 +1,7 @@
-import { AppBar, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import { MenuOutlined } from '@mui/icons-material';
-import { ReviewerContext } from './context/Reviewercontext';
+import { AppBar, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import { useContext } from 'react';
+import { ReviewerContext } from './context/Reviewercontext';
 
 export const NavBar = () => {
   const { drawerWidth } = useContext(ReviewerContext);

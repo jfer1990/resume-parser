@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
-import { ReviewerItem } from '../components/ReviewerItem';
 import { useEffect, useState } from 'react';
+import { ReviewerItem } from '../components/ReviewerItem';
 
 export const ReviewersTable = () => {
   const [reviewItems, setReviewItems] = useState([]);

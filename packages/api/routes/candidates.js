@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { getCandidate, getAll, postCandidate, putCandidate, deleteCandidate } from '../controllers/candidates.js';
 import { check } from 'express-validator';
+import { deleteCandidate, getAll, getCandidate, postCandidate, putCandidate } from '../controllers/candidates.js';
 // import validarCampos from '../middlewares/validar-campos.js'
 import { existCandidateEmail } from '../helpers/db-validators.js';
 

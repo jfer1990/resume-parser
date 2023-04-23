@@ -1,10 +1,10 @@
-import { Box, Divider, Drawer, IconButton, List, Toolbar, Typography } from '@mui/material';
 import { AddOutlined } from '@mui/icons-material';
+import { Box, Divider, Drawer, IconButton, List, Toolbar, Typography } from '@mui/material';
 
-import { StudentItem } from './StudentItem';
 import { useContext } from 'react';
-import { ReviewerContext } from './context/Reviewercontext';
 import { Link } from 'react-router-dom';
+import { StudentItem } from './StudentItem';
+import { ReviewerContext } from './context/Reviewercontext';
 
 export const SideBar = () => {
   const { drawerWidth, students } = useContext(ReviewerContext);

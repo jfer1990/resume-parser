@@ -1,9 +1,9 @@
 import { response } from 'express';
-import mongoose from 'mongoose';
 import moment from 'moment/moment.js';
+import mongoose from 'mongoose';
+import { getAllCandidates, getAllReviewers, getAssingationRule } from '../helpers/getters.js';
 import Reviewer from '../models/reviewer.js';
 import Revision from '../models/revision.js';
-import { getAllReviewers, getAllCandidates, getAssingationRule } from '../helpers/getters.js';
 
 const getReviewer = (req, res = response) => {
   const query = req.query;

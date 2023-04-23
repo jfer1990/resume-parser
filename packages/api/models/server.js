@@ -1,8 +1,8 @@
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
+import dbConnection from '../db/config.js';
 import candidateRoute from '../routes/candidates.js';
 import reviewerRoute from '../routes/reviewers.js';
-import dbConnection from '../db/config.js';
 
 class Server {
   constructor() {
