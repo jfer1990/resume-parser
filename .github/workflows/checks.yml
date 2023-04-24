@@ -14,17 +14,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: volta-cli/action
-      uses: volta-cli/action@v4.0.0
+      - name: volta-cli/action
+        uses: volta-cli/action@v4.0.0
 
-    - name: Install dependencies
-      run: yarn install
+      - name: Install dependencies
+        run: yarn install
 
-    - name: Run format
-      run: yarn format
+      - name: Run format check
+        run: yarn format:check
 
-    - name: Run lint
-      run: yarn lint
+      - name: Run lint check
+        run: yarn lint:check
