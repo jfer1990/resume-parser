@@ -6,6 +6,8 @@ export const ReviewerContext = createContext({});
 const ReviewerProvider = ({ children }) => {
   const drawerWidth = 280;
 
+  const [students, setStudents] = useState([]);
+
   const [reviewers, setReviewers] = useState([
     { name: 'Luis', email: null },
     { name: 'Marcelo', email: null },
@@ -22,7 +24,8 @@ const ReviewerProvider = ({ children }) => {
         drawerWidth,
         reviewers,
         setReviewers,
-
+        students,
+        setStudents,
         // onAddStudent,
       }}
     >
