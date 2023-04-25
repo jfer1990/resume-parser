@@ -18,11 +18,22 @@ export const AddStudentInput = () => {
     }));
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    // console.log(inputValue);
-    setStudents((students) => [...students, form]);
-    navigate('/');
+  const onSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      const path = import.meta.env.VITE_REACT_APP_REST_API + '/students/';
+      await fetch(path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+      setStudents((students) => [...students, form]);
+      navigate('/');
+    } catch (e) {
+      console.log('error on submit ', e);
+    }
   };
   const navigate = useNavigate();
   return (
