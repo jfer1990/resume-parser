@@ -45,7 +45,6 @@ const deleteReviewer = async (req, res = response) => {
     const { email } = req.body;
     await Reviewer.findOneAndDelete({ email });
     const reviewers = await Reviewer.find();
-    console.log('reviewers', students);
     res.json({
       msg: 'delete API user - controller',
       reviewers,
