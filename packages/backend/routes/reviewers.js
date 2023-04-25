@@ -21,7 +21,7 @@ router.get('/getAllAsigns', getAllAsigns);
 
 router.get('/getAllAsigns/:id', getCandidates);
 
-router.get('/getTodayCandidates', getTodayRevision);
+router.get('/getTodayAssignation', getTodayRevision);
 
 router.get('/getAll', getAll); // en lugar de all, getAll en todos | en los post agregar la palabra add/ | getTodayAssigns
 

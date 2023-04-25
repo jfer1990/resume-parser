@@ -40,10 +40,19 @@ const putReviewer = async (req, res = response) => {
   });
 };
 
-const deleteReviewer = (req, res = response) => {
-  res.json({
-    msg: 'delete API user - controller',
-  });
+const deleteReviewer = async (req, res = response) => {
+  try {
+    const { email } = req.body;
+    await Reviewer.findOneAndDelete({ email });
+    const reviewers = await Reviewer.find();
+    console.log('reviewers', students);
+    res.json({
+      msg: 'delete API user - controller',
+      reviewers,
+    });
+  } catch (e) {
+    console.log('error in delete reviewer', e);
+  }
 };
 
 const getAll = async (req, res = response) => {
@@ -92,16 +101,13 @@ const getAllAsigns = async (req, res = response) => {
 };
 
 const saveAssignments = async (candidates, reviewerID, reviewerObject) => {
-  // esto es parte del controlador? o es un helper?
   try {
     if (!candidates || !reviewerID) return;
-    // Checa si el reviewerID ya tiene un documento para el día de hoy
     const today = moment().startOf('day').toDate();
     const reviewer = new mongoose.Types.ObjectId(reviewerID);
     const existAssignment = await Revision.findOne({ reviewerID: reviewer, date: today }).exec();
 
     if (existAssignment) return false;
-    // const candidatesID = candidates.map(id=>new mongoose.Types.ObjectId(id));
 
     const revision = new Revision({ date: today, reviewerID: reviewer, candidates, reviewer: reviewerObject });
 
@@ -114,7 +120,6 @@ const saveAssignments = async (candidates, reviewerID, reviewerObject) => {
 
 const getTodayRevision = async (req, res = response) => {
   function shuffle(array) {
-    // saca esta función de aquí!!! aumenta complejidad ciclomática
     array.sort(() => Math.random() - 0.5);
   }
 
@@ -131,7 +136,6 @@ const getTodayRevision = async (req, res = response) => {
 
   let candidatesFrom = 0;
   let candidatesTo = candidatesPerReviewer;
-  // refactorizar-> modularizar y bajar complejidad ciclomática y de comprensión.
   const assignments = await Promise.all(
     reviewers.map(async (reviewer) => {
       if (candidatesOffset > 0) {
@@ -143,7 +147,7 @@ const getTodayRevision = async (req, res = response) => {
           return {
             reviewer: {
               ...reviewer,
-              assigned_candidates: candidatesToAssign,
+              assigned_students: candidatesToAssign,
             },
           };
         }
@@ -156,7 +160,7 @@ const getTodayRevision = async (req, res = response) => {
         return {
           reviewer: {
             ...reviewer,
-            assigned_candidates: candidatesToAssign,
+            assigned_students: candidatesToAssign,
           },
         };
       }
@@ -169,7 +173,7 @@ const getTodayRevision = async (req, res = response) => {
       return {
         reviewer: {
           ...reviewer,
-          assigned_candidates: assignedCandidates,
+          assigned_students: assignedCandidates,
         },
       };
     })

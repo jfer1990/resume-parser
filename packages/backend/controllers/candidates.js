@@ -36,22 +36,30 @@ const putCandidate = async (req, res = response) => {
   });
 };
 
-const deleteCandidate = (req, res = response) => {
-  res.json({
-    msg: 'delete API user - controller',
-  });
+const deleteCandidate = async (req, res = response) => {
+  try {
+    const { email } = req.body;
+    await Candidate.findOneAndDelete({ email });
+    const candidates = await Candidate.find();
+    res.json({
+      msg: 'delete API user / return all the remaining students - controller',
+      candidates,
+    });
+  } catch (e) {
+    console.log('error in delete reviewer', e);
+  }
 };
 
 const getAll = async (req, res = response) => {
   const candidatesResult = await Candidate.find();
-  const candidates = [...candidatesResult].map((cand) => {
+  const students = [...candidatesResult].map((cand) => {
     const { _id, name, email } = cand;
     const id = _id.toString();
     return { name, email, id };
   });
   res.json({
     msg: 'get all API candidates - controller',
-    candidates,
+    students,
   });
 };
 export { getCandidate, getAll, postCandidate, putCandidate, deleteCandidate };

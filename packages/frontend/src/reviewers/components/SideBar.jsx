@@ -14,8 +14,8 @@ export const SideBar = () => {
       const endPoint = import.meta.env.VITE_REACT_APP_REST_API + '/students/getAll';
       const response = await fetch(endPoint, { method: 'GET', headers: { 'Content-Type': 'aplication/json' } });
       const data = await response.json();
-      const { candidates } = data;
-      setStudents(candidates);
+      const { students } = data;
+      setStudents(students);
     })();
   }, []);
 
