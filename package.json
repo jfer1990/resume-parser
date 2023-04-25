@@ -1,5 +1,6 @@
 {
   "name": "@lugamafe/team-pr-tracker",
+  "private": true,
   "license": "ISC",
   "workspaces": [
     "packages/*"
@@ -10,7 +11,9 @@
     "lint": "eslint 'packages/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "yarn run lint --fix",
     "prettier": "prettier --check 'packages/**/*.{js,jsx,ts,tsx,css,scss,json}'",
-    "prettier:fix": "yarn run prettier --write"
+    "prettier:fix": "yarn run prettier --write",
+    "dev-frontend": "npx lerna run dev --scope=frontend",
+    "dev-backend": "npx lerna run dev --scope=backend"
   },
   "devDependencies": {
     "eslint": "^8.0.1",

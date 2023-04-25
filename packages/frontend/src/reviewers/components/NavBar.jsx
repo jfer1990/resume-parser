@@ -5,6 +5,7 @@ import { ReviewerContext } from './context/Reviewercontext';
 
 export const NavBar = () => {
   const { drawerWidth } = useContext(ReviewerContext);
+  const a = 1;
   return (
     <AppBar
       position="fixed"
