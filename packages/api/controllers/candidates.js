@@ -45,8 +45,6 @@ const deleteCandidate = (req, res = response) => {
 const getAll = async (req, res = response) => {
   const candidatesResult = await Candidate.find();
   const candidates = [...candidatesResult].map((cand) => {
-    console.log('cand', cand);
-
     const { _id, name, email } = cand;
     const id = _id.toString();
     return { name, email, id };

@@ -7,8 +7,6 @@ import Revision from '../models/revision.js';
 const getAllCandidates = async () => {
   const candidatesResult = await Candidate.find();
   const candidates = [...candidatesResult].map((cand) => {
-    console.log('cand', cand);
-
     const { _id, name, email } = cand;
     const id = _id.toString();
     return { name, email, id };
@@ -56,15 +54,6 @@ const getAssingationRule = async () => {
       });
     }
   }
-  // const today = moment().startOf('day').toDate() ;
-  // const yesterday = moment().subtract(1, 'days').startOf('day').toDate();
-  // const pastYesterday = moment().subtract(2, 'days').startOf('day').toDate();
-  // const lastAssignments = await Revision.find({date:yesterday});
-  // const lastlast = await Revision.find({date:pastYesterday});
-  // const yesterdayAssignments = lastAssignments.map(assign => ({reviewer:assign.reviewer.name, candidates:assign.candidates.length}));
-  // const pastYesterdayAssignments = lastlast.map(assign => ({reviewer:assign.reviewer.name, candidates:assign.candidates.length}));
-
-  console.log(lastAssignmentsDetailed);
   SaveJsonFile();
 };
 
