@@ -49,4 +49,4 @@ ReviewerItem.defaultProps = {
   members: [],
 };
 
-export { ReviewerItem };
+export default ReviewerItem;
