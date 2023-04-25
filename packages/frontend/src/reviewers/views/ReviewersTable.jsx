@@ -8,7 +8,7 @@ export const ReviewersTable = () => {
   useEffect(() => {
     (async () => {
       try {
-        const assignmentsPath = 'http://localhost:8080' + '/api/reviewers/getTodayCandidates';
+        const assignmentsPath = import.meta.env.VITE_REACT_APP_REST_API + '/reviewers/getTodayCandidates';
         const response = await fetch(assignmentsPath);
         const { assignments } = await response.json();
         console.log('assignments', assignments);

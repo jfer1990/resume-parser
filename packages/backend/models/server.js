@@ -21,7 +21,7 @@ class Server {
 
   routes() {
     this.app.use('/api/reviewers', reviewerRoute);
-    this.app.use('/api/candidates', candidateRoute);
+    this.app.use('/api/students', candidateRoute);
   }
 
   middlewares() {

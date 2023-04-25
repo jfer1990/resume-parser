@@ -1,13 +1,23 @@
 import { AddOutlined } from '@mui/icons-material';
 import { Box, Divider, Drawer, IconButton, List, Toolbar, Typography } from '@mui/material';
 
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { StudentItem } from './StudentItem';
 import { ReviewerContext } from './context/Reviewercontext';
 
 export const SideBar = () => {
-  const { drawerWidth, students } = useContext(ReviewerContext);
+  const { drawerWidth } = useContext(ReviewerContext);
+  const [students, setStudents] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const endPoint = import.meta.env.VITE_REACT_APP_REST_API + '/students/getAll';
+      const response = await fetch(endPoint, { method: 'GET', headers: { 'Content-Type': 'aplication/json' } });
+      const data = await response.json();
+      const { candidates } = data;
+      setStudents(candidates);
+    })();
+  }, []);
 
   return (
     <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
