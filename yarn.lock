@@ -828,39 +828,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lugamafe/team-pr-tracker-api@workspace:packages/api":
-  version: 0.0.0-use.local
-  resolution: "@lugamafe/team-pr-tracker-api@workspace:packages/api"
-  dependencies:
-    cors: ^2.8.5
-    dotenv: ^16.0.3
-    dotenv-mono: ^1.3.10
-    express: ^4.18.2
-    express-validator: ^7.0.1
-    moment: ^2.29.4
-    mongodb: ^5.2.0
-    mongoose: ^7.0.4
-  languageName: unknown
-  linkType: soft
-
-"@lugamafe/team-pr-tracker-ui@workspace:packages/frontend":
-  version: 0.0.0-use.local
-  resolution: "@lugamafe/team-pr-tracker-ui@workspace:packages/frontend"
-  dependencies:
-    "@emotion/react": ^11.10.6
-    "@emotion/styled": ^11.10.6
-    "@mui/icons-material": ^5.11.16
-    "@mui/material": ^5.12.0
-    "@types/react": ^18.0.27
-    "@types/react-dom": ^18.0.10
-    "@vitejs/plugin-react": ^3.1.0
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    react-router-dom: ^6.10.0
-    vite: ^4.1.0
-  languageName: unknown
-  linkType: soft
-
 "@lugamafe/team-pr-tracker@workspace:.":
   version: 0.0.0-use.local
   resolution: "@lugamafe/team-pr-tracker@workspace:."
@@ -2163,6 +2130,20 @@ __metadata:
   checksum: 765de4abebd3e4688ebdfbff8571ddc8cd8061f839bb6c3e550b0344a4027b04c60491f843296ce3f3379fb356cc873d57a9ee6694262547eb822c14a25be9a6
   languageName: node
   linkType: hard
+
+"backend@workspace:packages/backend":
+  version: 0.0.0-use.local
+  resolution: "backend@workspace:packages/backend"
+  dependencies:
+    cors: ^2.8.5
+    dotenv-mono: ^1.3.10
+    express: ^4.18.2
+    express-validator: ^7.0.1
+    moment: ^2.29.4
+    mongodb: ^5.2.0
+    mongoose: ^7.0.4
+  languageName: unknown
+  linkType: soft
 
 "balanced-match@npm:^1.0.0":
   version: 1.0.2
@@ -4050,6 +4031,24 @@ __metadata:
   checksum: 13ea8b08f91e669a64e3ba3a20eb79d7ca5379a81f1ff7f4310d54e2320645503cc0c78daedc93dfb6191287295f6479544a649c64d8e41a1c0fb0c221552346
   languageName: node
   linkType: hard
+
+"frontend@workspace:packages/frontend":
+  version: 0.0.0-use.local
+  resolution: "frontend@workspace:packages/frontend"
+  dependencies:
+    "@emotion/react": ^11.10.6
+    "@emotion/styled": ^11.10.6
+    "@mui/icons-material": ^5.11.16
+    "@mui/material": ^5.12.0
+    "@types/react": ^18.0.27
+    "@types/react-dom": ^18.0.10
+    "@vitejs/plugin-react": ^3.1.0
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    react-router-dom: ^6.10.0
+    vite: ^4.1.0
+  languageName: unknown
+  linkType: soft
 
 "fs-constants@npm:^1.0.0":
   version: 1.0.0
