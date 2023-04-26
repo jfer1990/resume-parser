@@ -8,11 +8,7 @@ const ReviewerProvider = ({ children }) => {
 
   const [students, setStudents] = useState([]);
 
-  const [reviewers, setReviewers] = useState([
-    { name: 'Luis', email: null },
-    { name: 'Marcelo', email: null },
-    { name: 'Fernando', email: null },
-  ]);
+  const [reviewers, setReviewers] = useState([]);
 
   // const onAddStudent = () => {
   //   setStudents([...students, "hola"]);

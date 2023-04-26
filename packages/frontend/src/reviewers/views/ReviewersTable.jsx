@@ -11,7 +11,7 @@ export const ReviewersTable = () => {
         const assignmentsPath = import.meta.env.VITE_REACT_APP_REST_API + '/reviewers/getTodayAssignation';
         const response = await fetch(assignmentsPath);
         const { assignments } = await response.json();
-        console.log('assignments', assignments);
+        // console.log('assignments', assignments);
         setReviewItems(() => [
           ...assignments.map((assignment) => ({
             name: assignment.reviewer.name,

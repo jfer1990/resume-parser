@@ -15,10 +15,23 @@ export const AddReviewerInput = () => {
     }));
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    setReviewers((reviewers) => [...reviewers, form]);
-    navigate('/');
+    try {
+      event.preventDefault();
+      const path = import.meta.env.VITE_REACT_APP_REST_API + '/reviewers/';
+      await fetch(path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+      setReviewers((reviewers) => [...reviewers, form]);
+      navigate('/');
+    } catch (e) {
+      console.log('error on submit ', e);
+    }
   };
   const navigate = useNavigate();
   return (
