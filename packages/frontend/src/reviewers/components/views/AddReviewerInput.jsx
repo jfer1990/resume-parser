@@ -2,7 +2,7 @@ import { SaveOutlined } from '@mui/icons-material';
 import { Button, FormControl, Grid, TextField, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ReviewerContext } from '../components/context/ReviewerContext';
+import { ReviewerContext } from '../context/ReviewerContext';
 
 // TODO: Donde están las validaciones de los datos en los inputs?
 // FIXME: Como rayos salgo de aquí si entro por error y quiero regresar al home??

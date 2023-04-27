@@ -1,6 +1,8 @@
-import { Box, Grid } from '@mui/material';
+import { AddOutlined } from '@mui/icons-material';
+import { Box, Grid, IconButton } from '@mui/material';
 import { useEffect, useState } from 'react';
-import ReviewerItem from '../components/ReviewerItem';
+import { Link } from 'react-router-dom';
+import ReviewerItem from '../ReviewerItem';
 
 // FIXME: Leer el todo numero 6 de la raíz del proyecto
 export const ReviewersTable = () => {
@@ -60,6 +62,21 @@ export const ReviewersTable = () => {
           //  FIXME: reviewer={reviewer.name debería cambiar a name={reviewer.name} el componente ya sabemos que es un Reviewer por el nombre
           <ReviewerItem key={reviewer.id} reviewer={reviewer.name} members={reviewer.members} />
         ))}
+        <IconButton
+          component={Link}
+          to="/add-reviewer"
+          size="large"
+          sx={{
+            color: 'white',
+            backgroundColor: 'error.main',
+            ':hover': { backgroundColor: 'error.main', opacity: 0.9 },
+            position: 'fixed',
+            right: 50,
+            bottom: 50,
+          }}
+        >
+          <AddOutlined sx={{ fontSize: 30 }} />
+        </IconButton>
       </Grid>
     </Box>
   );

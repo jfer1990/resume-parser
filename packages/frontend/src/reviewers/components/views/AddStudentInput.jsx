@@ -2,7 +2,7 @@ import { SaveOutlined } from '@mui/icons-material';
 import { Button, FormControl, Grid, TextField, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ReviewerContext } from '../components/context/ReviewerContext';
+import { ReviewerContext } from '../context/ReviewerContext';
 
 // FIXME: Como rayos salgo de aquí si entro por error y quiero regresar al home??
 // FIXME: Este componente es muy parecido a AddReviewerInput.jsx, se puede hacer un componente reutilizable que reciba los datos que cambian por props

@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
-import { AddReviewerInput } from '../reviewers/views/AddReviewerInput';
-import { AddStudentInput } from '../reviewers/views/AddStudentInput';
-import { ReviewersTable } from '../reviewers/views/ReviewersTable';
+import { AddReviewerInput } from '../reviewers/components/views/AddReviewerInput';
+import { AddStudentInput } from '../reviewers/components/views/AddStudentInput';
+import { ReviewersTable } from '../reviewers/components/views/ReviewersTable';
 
 const AppRouter = () => {
   return (

@@ -1,11 +1,11 @@
 import { AddOutlined } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { AddReviewerInput } from '../views/AddReviewerInput';
-import { AddStudentInput } from '../views/AddStudentInput';
-import { ReviewersTable } from '../views/ReviewersTable';
 import { ReviewerProvider } from './context/ReviewerContext';
 import { ReviewerLayout } from './layout/ReviewerLayout';
+import { AddReviewerInput } from './views/AddReviewerInput';
+import { AddStudentInput } from './views/AddStudentInput';
+import { ReviewersTable } from './views/ReviewersTable';
 
 // FIXME: Este componente nadie lo usa se debe eliminar
 export const ReviewPage = () => {
