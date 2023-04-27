@@ -15,12 +15,13 @@ class Server {
     // Middlewares
     this.middlewares();
 
-    // Rutas de mi app
+    // App Routes
     this.routes();
   }
 
   routes() {
     this.app.use('/api/reviewers', reviewerRoute);
+    // FIXME: rename students to members leer todo numero 3 en la raíz del proyecto.
     this.app.use('/api/students', candidateRoute);
   }
 
@@ -28,7 +29,7 @@ class Server {
     this.app.use(express.static('public'));
     this.app.use(cors());
 
-    // Lectura y parseo
+    // Lecture and parse of the body
     this.app.use(express.json());
   }
 
@@ -38,7 +39,7 @@ class Server {
 
   listen() {
     this.app.listen(this.port, () => {
-      console.log('servidor corriento en puerto ', this.port);
+      console.log('Server running on port: ', this.port);
     });
   }
 }

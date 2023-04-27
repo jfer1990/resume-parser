@@ -20,5 +20,17 @@
   "scss.validate": false,
   // "stylelint.validate": ["css", "scss", ".module.css", ".module.scss"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "vue.features.codeActions.enable": false
+  "vue.features.codeActions.enable": false,
+  "cSpell.language": "en,es-ES",
+  "cSpell.enabled": true,
+  "cSpell.words": [
+    "deseestructuración",
+    "lugamafe",
+    "middlewares",
+    "Parens",
+    "refactorizar",
+    "reutilizable",
+    "settear",
+    "volta"
+  ]
 }

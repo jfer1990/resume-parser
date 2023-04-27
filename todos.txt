@@ -1,0 +1,12 @@
+1.- TODO: BE/FE Crear botón para reasignar candidatos con reviewers por si algo no salio bien o nos gusto la asignación del dia.
+
+2.- TODO: FE Crear alguna hook o helper usando react query o una herramienta similar para controlar 
+los llamados al api y evitar crear instancias de fetch por todos lados.
+
+3.- TODO: BE/FE Cambiar el termino student por member tanto en api como en frontend
+
+4.- TODO: FE la carpeta reviewers que esta dentro de src solo debería llamarse components
+
+5.- TODO: FE hacer responsivo el sitio
+
+6.- TODO: BE/FE Como borro un reviewer? sin que sea fácil de hacer.

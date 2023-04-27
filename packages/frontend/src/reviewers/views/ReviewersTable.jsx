@@ -2,16 +2,19 @@ import { Box, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import ReviewerItem from '../components/ReviewerItem';
 
+// FIXME: Leer el todo numero 6 de la raíz del proyecto
 export const ReviewersTable = () => {
   const [reviewItems, setReviewItems] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {
+        // FIXME: leer el todo numero 2 de la raíz del proyecto
         const assignmentsPath = import.meta.env.VITE_REACT_APP_REST_API + '/reviewers/getTodayAssignation';
         const response = await fetch(assignmentsPath);
         const { assignments } = await response.json();
-        // console.log('assignments', assignments);
+        // FIXME: la deseestructuración de assignments es innecesaria ya que map regresa un arreglo, y al hacer esto metes un arreglo dentro de otro arreglo
+        // FIXME: por que los reviewers siempre están en desorden? deberían de estar ordenados por nombre.
         setReviewItems(() => [
           ...assignments.map((assignment) => ({
             name: assignment.reviewer.name,
@@ -24,6 +27,7 @@ export const ReviewersTable = () => {
     })();
   }, []);
   return (
+    // FIXME: Hay que priorizar tratar de usar styled components en vez de usar sx. Si son mas de 3 propiedades de sx que se usan o se usan selectores complejos
     <Box
       display="flex"
       spacing={0}
@@ -36,6 +40,8 @@ export const ReviewersTable = () => {
         borderRadius: 3,
       }}
     >
+      {/*  FIXME: Hay que priorizar tratar de usar styled components en vez de usar sx. Si son mas de 3 propiedades de sx que
+      se usan o se usan selectores complejos */}
       <Grid
         container
         alignItems="center"
@@ -50,7 +56,9 @@ export const ReviewersTable = () => {
         }}
       >
         {reviewItems.map((reviewer) => (
-          <ReviewerItem key={JSON.stringify(reviewer)} reviewer={reviewer.name} members={reviewer.members} />
+          // FIXME: key={JSON.stringify(reviewer)} es una mala práctica, no se debe usar JSON.stringify en el key de un componente Reviewer ya tiene un id que le regresa el BE
+          //  FIXME: reviewer={reviewer.name debería cambiar a name={reviewer.name} el componente ya sabemos que es un Reviewer por el nombre
+          <ReviewerItem key={reviewer.id} reviewer={reviewer.name} members={reviewer.members} />
         ))}
       </Grid>
     </Box>

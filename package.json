@@ -1,7 +1,8 @@
 {
   "name": "@lugamafe/team-pr-tracker",
   "private": true,
-  "license": "ISC",
+  "version": "0.0.0",
+  "license": "GPL-3.0-only",
   "workspaces": [
     "packages/*"
   ],

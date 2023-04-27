@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import { AddReviewerInput } from '../views/AddReviewerInput';
 import { AddStudentInput } from '../views/AddStudentInput';
 import { ReviewersTable } from '../views/ReviewersTable';
-import { ReviewerProvider } from './context/Reviewercontext';
-import { ReviewerLayaout } from './layout/ReviewerLayaout';
+import { ReviewerProvider } from './context/ReviewerContext';
+import { ReviewerLayout } from './layout/ReviewerLayout';
+
+// FIXME: Este componente nadie lo usa se debe eliminar
 export const ReviewPage = () => {
   return (
     <ReviewerProvider>
-      <ReviewerLayaout>
+      <ReviewerLayout>
         <ReviewersTable />
         <AddReviewerInput />
         <AddStudentInput />
@@ -29,7 +31,7 @@ export const ReviewPage = () => {
         >
           <AddOutlined sx={{ fontSize: 30 }} />
         </IconButton>
-      </ReviewerLayaout>
+      </ReviewerLayout>
     </ReviewerProvider>
   );
 };

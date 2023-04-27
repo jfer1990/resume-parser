@@ -5,6 +5,7 @@ import { getAllCandidates, getAllReviewers, getAssingationRule } from '../helper
 import Reviewer from '../models/reviewer.js';
 import Revision from '../models/revision.js';
 
+// FIXME: esto de que sirve?
 const getReviewer = (req, res = response) => {
   const query = req.query;
   res.json({

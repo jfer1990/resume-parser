@@ -3,7 +3,7 @@ import { AddReviewerInput } from '../reviewers/views/AddReviewerInput';
 import { AddStudentInput } from '../reviewers/views/AddStudentInput';
 import { ReviewersTable } from '../reviewers/views/ReviewersTable';
 
-export const AppRouter = () => {
+const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<ReviewersTable />} />
@@ -12,3 +12,5 @@ export const AppRouter = () => {
     </Routes>
   );
 };
+
+export default AppRouter;
