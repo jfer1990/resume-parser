@@ -2,9 +2,6 @@ import PropTypes from 'prop-types';
 import { createContext, useState } from 'react';
 
 export const ReviewerContext = createContext({
-  // !!FIXME: POR QUE RAYOS HAY EN EL CONTEXTO COSAS ACERCA DEL WIDTH DE LA APLICACIÓN??
-  // !! HAY QUE QUITAR ESTO Y RESOLVERLO CON CONSTANTES EN TODO CASO Y CON CSS
-  drawerWidth: 0,
   reviewers: [],
   setReviewers: null,
   students: [],
@@ -12,10 +9,6 @@ export const ReviewerContext = createContext({
 });
 
 const ReviewerProvider = ({ children }) => {
-  // !!FIXME: POR QUE RAYOS HAY EN EL CONTEXTO COSAS ACERCA DEL WIDTH DE LA APLICACIÓN??
-  // !! HAY QUE QUITAR ESTO Y RESOLVERLO CON CONSTANTES EN TODO CASO Y CON CSS
-  const drawerWidth = 280;
-
   const [students, setStudents] = useState([]);
 
   const [reviewers, setReviewers] = useState([]);
@@ -27,7 +20,7 @@ const ReviewerProvider = ({ children }) => {
   return (
     <ReviewerContext.Provider
       value={{
-        drawerWidth,
+        // drawerWidth,
         reviewers,
         setReviewers,
         students,

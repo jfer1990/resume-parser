@@ -7,19 +7,16 @@ import { ReviewerContext } from './context/ReviewerContext';
 
 // FIXME: Este componente debería estar en la carpeta de layout dentro la carpeta de sidebar
 // FIXME: Ver el TODO numero 3 de la raíz del proyecto
-// FIXME: No debería ser necesario settear el studentEmail = '' ya que es seguro que el componente padre le va a pasar un email del BE aun asi es innecesario mostrar el email del miembro
-const StudentItem = ({ student, studentEmail = '' }) => {
+
+const StudentItem = ({ student, studentEmail }) => {
   // FIXME: Es inseguro settear todos los usuarios es mejor que hubiera una función solo para añadir un nuevo estudiante
   const { setStudents } = useContext(ReviewerContext);
 
-  const onDelete = async (event) => {
+  const onDelete = async () => {
     try {
-      // FIXME: Que estas previniendo? Que acción quieres prevenir? No hay ningún evento que prevengas
-      event.preventDefault();
-
       // FIXME: leer el todo numero 2 de la raíz del proyecto
-      // FIXME: '/students/'; por que hay un dash al final? No debería ser '/students'?
-      const path = import.meta.env.VITE_REACT_APP_REST_API + '/students/';
+
+      const path = import.meta.env.VITE_REACT_APP_REST_API + '/students';
       const response = await fetch(path, {
         method: 'DELETE',
         headers: {

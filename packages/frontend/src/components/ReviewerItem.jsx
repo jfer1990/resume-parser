@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 // FIXME: Este componente debería estar dentro de una carpeta llamada ReviewersTable dentro de components
 // FIXME: Este componente no es responsivo, debería de ser responsivo
-const ReviewerItem = ({ reviewer, members = [] }) => {
+const ReviewerItem = ({ name, members = [] }) => {
   return (
     <Grid
       item
@@ -18,7 +18,7 @@ const ReviewerItem = ({ reviewer, members = [] }) => {
       se usan o se usan selectores complejos */}
       <Box sx={{ background: '#5C5B85', borderRadius: 3, margin: 1, padding: 1 }}>
         <Typography color="white" variant="h6" textAlign="center">
-          {reviewer}
+          {name}
         </Typography>
       </Box>
       {/* <Divider /> */}
@@ -43,7 +43,7 @@ const ReviewerItem = ({ reviewer, members = [] }) => {
 };
 
 ReviewerItem.propTypes = {
-  reviewer: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   members: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,

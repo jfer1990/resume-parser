@@ -5,8 +5,6 @@ los llamados al api y evitar crear instancias de fetch por todos lados.
 
 3.- TODO: BE/FE Cambiar el termino student por member tanto en api como en frontend
 
-4.- TODO: FE la carpeta reviewers que esta dentro de src solo debería llamarse components
+4.- TODO: FE hacer responsivo el sitio
 
-5.- TODO: FE hacer responsivo el sitio
-
-6.- TODO: BE/FE Como borro un reviewer? sin que sea fácil de hacer.
+5.- TODO: BE/FE Como borro un reviewer? sin que sea fácil de hacer

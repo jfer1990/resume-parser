@@ -1,8 +1,18 @@
 import { AddOutlined } from '@mui/icons-material';
-import { Box, Grid, IconButton } from '@mui/material';
+import { Box, Grid, IconButton, styled } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import ReviewerItem from '../ReviewerItem';
+
+const StyledIconButton = styled(IconButton)({
+  color: 'white',
+  backgroundColor: 'red',
+  ':hover': { backgroundColor: 'error.main', opacity: 0.9 },
+  position: 'fixed',
+  right: 50,
+  bottom: 50,
+});
 
 // FIXME: Leer el todo numero 6 de la raíz del proyecto
 export const ReviewersTable = () => {
@@ -15,6 +25,7 @@ export const ReviewersTable = () => {
         const assignmentsPath = import.meta.env.VITE_REACT_APP_REST_API + '/reviewers/getTodayAssignation';
         const response = await fetch(assignmentsPath);
         const { assignments } = await response.json();
+        console.log(assignments);
         // FIXME: la deseestructuración de assignments es innecesaria ya que map regresa un arreglo, y al hacer esto metes un arreglo dentro de otro arreglo
         // FIXME: por que los reviewers siempre están en desorden? deberían de estar ordenados por nombre.
         setReviewItems(() => [
@@ -28,6 +39,7 @@ export const ReviewersTable = () => {
       }
     })();
   }, []);
+
   return (
     // FIXME: Hay que priorizar tratar de usar styled components en vez de usar sx. Si son mas de 3 propiedades de sx que se usan o se usan selectores complejos
     <Box
@@ -58,25 +70,12 @@ export const ReviewersTable = () => {
         }}
       >
         {reviewItems.map((reviewer) => (
-          // FIXME: key={JSON.stringify(reviewer)} es una mala práctica, no se debe usar JSON.stringify en el key de un componente Reviewer ya tiene un id que le regresa el BE
-          //  FIXME: reviewer={reviewer.name debería cambiar a name={reviewer.name} el componente ya sabemos que es un Reviewer por el nombre
-          <ReviewerItem key={reviewer.id} reviewer={reviewer.name} members={reviewer.members} />
+          <ReviewerItem key={reviewer.id} name={reviewer.name} members={reviewer.members} />
         ))}
-        <IconButton
-          component={Link}
-          to="/add-reviewer"
-          size="large"
-          sx={{
-            color: 'white',
-            backgroundColor: 'error.main',
-            ':hover': { backgroundColor: 'error.main', opacity: 0.9 },
-            position: 'fixed',
-            right: 50,
-            bottom: 50,
-          }}
-        >
+
+        <StyledIconButton component={Link} to="/add-reviewer" size="large">
           <AddOutlined sx={{ fontSize: 30 }} />
-        </IconButton>
+        </StyledIconButton>
       </Grid>
     </Box>
   );

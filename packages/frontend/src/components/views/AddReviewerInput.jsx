@@ -19,12 +19,8 @@ export const AddReviewerInput = () => {
     }));
   };
 
-  const onSubmit = async (event) => {
-    // FIXME: Que estas previniendo? Que acción quieres prevenir? No hay ningún evento que prevengas
-    event.preventDefault();
+  const onSubmit = async () => {
     try {
-      // FIXME: 2 veces? preventDefault
-      event.preventDefault();
       // FIXME: leer el todo numero 2 de la raíz del proyecto
       // FIXME: '/reviewers/'; por que hay un dash al final? No debería ser '/reviewers'?
       const path = import.meta.env.VITE_REACT_APP_REST_API + '/reviewers/';
@@ -53,42 +49,39 @@ export const AddReviewerInput = () => {
           Agregar Reviewer:
         </Typography>
       </Grid>
-      {/* FIXME: Es necesario envolverlo en este componente realmente cual es la función de Grid container? */}
-      <Grid container>
-        <form onSubmit={onSubmit}>
-          {/* FIXME: FormControl esta mal usado */}
-          <FormControl fullWidth>
-            <TextField
-              name="name"
-              type="text"
-              variant="filled"
-              fullWidth
-              placeholder="Ingrese un nombre"
-              label="nombre:"
-              value={form.name}
-              onChange={OnInputChange}
-              sx={{ border: 'none', mb: 3, mt: 3 }}
-            />
-            <TextField
-              name="email"
-              type="text"
-              variant="filled"
-              fullWidth
-              placeholder="Ingrese un correo"
-              label="correo:"
-              value={form.email}
-              onChange={OnInputChange}
-              sx={{ border: 'none', mb: 3 }}
-            />
-            <Grid item alignSelf="flex-end">
-              <Button component={Link} to="/" type="submit" color="primary" onClick={onSubmit} sx={{ padding: 2 }}>
-                <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
-                Guardar
-              </Button>
-            </Grid>
-          </FormControl>
-        </form>
-      </Grid>
+      <form onSubmit={onSubmit}>
+        {/* FIXME: FormControl esta mal usado */}
+        <FormControl fullWidth>
+          <TextField
+            name="name"
+            type="text"
+            variant="filled"
+            fullWidth
+            placeholder="Ingrese un nombre"
+            label="nombre:"
+            value={form.name}
+            onChange={OnInputChange}
+            sx={{ border: 'none', mb: 3, mt: 3 }}
+          />
+          <TextField
+            name="email"
+            type="text"
+            variant="filled"
+            fullWidth
+            placeholder="Ingrese un correo"
+            label="correo:"
+            value={form.email}
+            onChange={OnInputChange}
+            sx={{ border: 'none', mb: 3 }}
+          />
+          <Grid item alignSelf="flex-end">
+            <Button component={Link} to="/" type="submit" color="primary" onClick={onSubmit} sx={{ padding: 2 }}>
+              <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
+              Guardar
+            </Button>
+          </Grid>
+        </FormControl>
+      </form>
     </Grid>
   );
 };

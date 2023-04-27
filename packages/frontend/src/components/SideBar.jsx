@@ -9,7 +9,8 @@ import { ReviewerContext } from './context/ReviewerContext';
 export const SideBar = () => {
   // FIXME: no usar el drawerWidth en el contexto en todo caso debería ser una variable global
   // FIXME: tratar de forzar el width asi es una mala practica, El papa del navbar debería ser un contenedor grid y decirle a AppBar que width debería tener
-  const { drawerWidth, students, setStudents } = useContext(ReviewerContext);
+  const { students, setStudents } = useContext(ReviewerContext);
+  const drawerWidth = 280;
   useEffect(() => {
     (async () => {
       // FIXME: leer el todo numero 2 de la raíz del proyecto
