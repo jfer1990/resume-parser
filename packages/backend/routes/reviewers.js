@@ -5,7 +5,6 @@ import {
   getAll,
   getAllAsigns,
   getCandidates,
-  getReviewer,
   getTodayRevision,
   postReviewer,
   putReviewer,
@@ -14,8 +13,6 @@ import {
 import { existCandidateEmail } from '../helpers/db-validators.js';
 
 const router = Router();
-
-router.get('/', getReviewer);
 
 router.get('/getAllAsigns', getAllAsigns);
 

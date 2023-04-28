@@ -2,17 +2,9 @@ import { response } from 'express';
 import moment from 'moment/moment.js';
 import mongoose from 'mongoose';
 import { getAllMembers, getAllReviewers } from '../helpers/getters.js';
+import { assignNewRevisions } from '../helpers/revisions.js';
 import Reviewer from '../models/reviewer.js';
 import Revision from '../models/revision.js';
-
-// FIXME: esto de que sirve?
-const getReviewer = (req, res = response) => {
-  const query = req.query;
-  res.json({
-    msg: 'get API - controller',
-    query,
-  });
-};
 
 const postReviewer = async (req, res = response) => {
   try {
@@ -119,6 +111,7 @@ const saveAssignments = async (members, reviewerID, reviewerObject) => {
 };
 
 const getTodayRevision = async (req, res = response) => {
+  assignNewRevisions();
   function shuffle(array) {
     array.sort(() => Math.random() - 0.5);
   }
@@ -195,4 +188,4 @@ const getTodayRevision = async (req, res = response) => {
     assignments,
   });
 };
-export { getReviewer, getCandidates, getAllAsigns, getTodayRevision, getAll, postReviewer, putReviewer, deleteReviewer };
+export { getCandidates, getAllAsigns, getTodayRevision, getAll, postReviewer, putReviewer, deleteReviewer };
