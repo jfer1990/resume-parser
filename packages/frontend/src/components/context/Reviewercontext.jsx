@@ -13,19 +13,31 @@ const ReviewerProvider = ({ children }) => {
 
   const [reviewers, setReviewers] = useState([]);
 
-  // const onAddStudent = () => {
-  //   setStudents([...students, "hola"]);
-  // };
+  const onAddReviewer = (form) => {
+    setReviewers((reviewers) => [...reviewers, form]);
+  };
+
+  const onAddStudent = (form) => {
+    setStudents((students) => [...students, form]);
+  };
+  const onDeletedStudent = (students) => {
+    setStudents(students);
+  };
+  const onDeletedReviewer = (Reviewers) => {
+    setStudents(Reviewers);
+  };
 
   return (
     <ReviewerContext.Provider
       value={{
-        // drawerWidth,
         reviewers,
         setReviewers,
         students,
         setStudents,
-        // onAddStudent,
+        onAddReviewer,
+        onAddStudent,
+        onDeletedStudent,
+        onDeletedReviewer,
       }}
     >
       {children}

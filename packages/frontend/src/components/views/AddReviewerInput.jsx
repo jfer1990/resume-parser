@@ -1,15 +1,13 @@
-import { SaveOutlined } from '@mui/icons-material';
+import { ArrowBack, SaveOutlined } from '@mui/icons-material';
 import { Button, FormControl, Grid, TextField, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { ComponentButton } from '../common/ComponentButton';
 import { ReviewerContext } from '../context/ReviewerContext';
 
-// TODO: Donde están las validaciones de los datos en los inputs?
-// FIXME: Como rayos salgo de aquí si entro por error y quiero regresar al home??
 // FIXME: Este componente es muy parecido a AddStudentInput.jsx, se puede hacer un componente reutilizable que reciba los datos que cambian por props
 export const AddReviewerInput = () => {
-  // FIXME: Es inseguro settear todos los usuarios es mejor que hubiera una función solo para añadir un nuevo reviewer
-  const { setReviewers } = useContext(ReviewerContext);
+  const { onAddReviewer } = useContext(ReviewerContext);
   const [form, setForm] = useState({ name: '', email: '' });
 
   const OnInputChange = ({ target: { name, value } }) => {
@@ -20,22 +18,48 @@ export const AddReviewerInput = () => {
   };
 
   const onSubmit = async () => {
+    // try {
+    //       const { data } = useFetch(`${import.meta.env.VITE_REACT_APP_REST_API}/reviwers`, {
+    //         method: 'POST',
+    //         body: JSON.stringify(form),
+    //       });
+    //       console.log(data);
+
+    //       if (!form.name) {
+    //         throw new Error('El nombre no puede estar vacío');
+    //       }
+
+    //       if (data.status === 200) {
+    //         onAddReviewer(form);
+    //         navigate('/');
+    //       } else {
+    //         throw new Error('Hubo un problema al agregar el estudiante.');
+    //       }
+    //     } catch (e) {
+    //       console.log('error on submit ', e);
+    //     }
+    //   };
+
     try {
-      // FIXME: leer el todo numero 2 de la raíz del proyecto
-      // FIXME: '/reviewers/'; por que hay un dash al final? No debería ser '/reviewers'?
-      const path = import.meta.env.VITE_REACT_APP_REST_API + '/reviewers/';
-      // FIXME: hay que validar los datos antes de enviarlos al backend que pasa si están vacíos o tienen mal formato como puros números o espacios?
-      // FIXME: hay que validar que la llamada regrese un código 200.
-      await fetch(path, {
+      if (!form.name) {
+        throw new Error('El nombre no puede estar vacío');
+      }
+      const path = import.meta.env.VITE_REACT_APP_REST_API + '/reviewers';
+
+      const response = await fetch(path, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(form),
       });
-      // FIXME: Es inseguro settear todos los usuarios es mejor que hubiera una función solo para añadir un nuevo reviewer
-      setReviewers((reviewers) => [...reviewers, form]);
-      navigate('/');
+
+      if (response.status === 200) {
+        onAddReviewer(form);
+        navigate('/');
+      } else {
+        throw new Error('Hubo un problema al agregar el revisor.');
+      }
     } catch (e) {
       console.log('error on submit ', e);
     }
@@ -43,12 +67,9 @@ export const AddReviewerInput = () => {
   const navigate = useNavigate();
   return (
     <Grid container direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
-      {/* FIXME: Es necesario envolverlo en este componente realmente cual es la función de Grid item? */}
-      <Grid item>
-        <Typography fontSize={39} fontWeight="light">
-          Agregar Reviewer:
-        </Typography>
-      </Grid>
+      <Typography fontSize={39} fontWeight="light">
+        Agregar Reviewer:
+      </Typography>
       <form onSubmit={onSubmit}>
         {/* FIXME: FormControl esta mal usado */}
         <FormControl fullWidth>
@@ -82,6 +103,10 @@ export const AddReviewerInput = () => {
           </Grid>
         </FormControl>
       </form>
+
+      <ComponentButton route={'/'} right={67} bottom={40}>
+        <ArrowBack sx={{ fontSize: 30 }} />
+      </ComponentButton>
     </Grid>
   );
 };
