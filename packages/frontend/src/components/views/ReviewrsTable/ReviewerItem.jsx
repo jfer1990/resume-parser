@@ -74,6 +74,7 @@ const ReviewerItem = ({ name, email, members = [] }) => {
 
 ReviewerItem.propTypes = {
   name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
   members: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
