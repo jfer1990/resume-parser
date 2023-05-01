@@ -23,8 +23,8 @@ const ReviewerProvider = ({ children }) => {
   const onDeletedStudent = (students) => {
     setStudents(students);
   };
-  const onDeletedReviewer = (Reviewers) => {
-    setReviewers(Reviewers);
+  const onDeletedReviewer = (reviewers) => {
+    setReviewers(reviewers);
   };
 
   return (
