@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Box, Button, Modal, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 export const RemoveIconModal = ({ name, onDelete, left, top }) => {
@@ -58,4 +59,11 @@ export const RemoveIconModal = ({ name, onDelete, left, top }) => {
       </Modal>
     </div>
   );
+};
+
+RemoveIconModal.propTypes = {
+  name: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  left: PropTypes.number.isRequired,
+  top: PropTypes.number.isRequired,
 };

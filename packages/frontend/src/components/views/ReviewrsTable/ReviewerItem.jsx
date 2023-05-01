@@ -1,7 +1,7 @@
 import { PersonOutline } from '@mui/icons-material';
 import { Box, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, styled } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { RemoveIconModal } from '../../common/RemoveIconModal';
 import { ReviewerContext } from '../../context/ReviewerContext';
 
@@ -16,22 +16,10 @@ const StyledIconBox = styled(Box)({
   margin: 8,
   padding: 6,
 });
-const StyledModalBox = styled(Box)({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  backgroundColor: 'white',
 
-  padding: 30,
-  borderRadius: '8px',
-  maxWidth: 400,
-  minWidth: 300,
-  textAlign: 'center',
-});
 const ReviewerItem = ({ name, email, members = [] }) => {
   const { onDeletedReviewer } = useContext(ReviewerContext);
-  const [open, setOpen] = useState(false);
+
   const onDelete = async () => {
     try {
       const path = import.meta.env.VITE_REACT_APP_REST_API + '/reviewers';

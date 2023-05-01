@@ -1,4 +1,5 @@
 import { IconButton } from '@mui/material';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export const ComponentButton = ({ children, route, right, bottom }) => {
@@ -20,4 +21,11 @@ export const ComponentButton = ({ children, route, right, bottom }) => {
       {children}
     </IconButton>
   );
+};
+
+ComponentButton.propTypes = {
+  children: PropTypes.node.isRequired,
+  route: PropTypes.string.isRequired,
+  right: PropTypes.number.isRequired,
+  bottom: PropTypes.number.isRequired,
 };
