@@ -39,6 +39,7 @@ export const SideBar = () => {
         </Toolbar>
         <Divider />
 
+        {/* FIXME: Ver el TODO numero 3 de la raíz del proyecto */}
         <List>
           {students.map((student) => (
             <StudentItem key={student.id} name={student.name} email={student.email} />

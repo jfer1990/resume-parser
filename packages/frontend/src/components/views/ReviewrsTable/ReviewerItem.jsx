@@ -18,6 +18,7 @@ const StyledIconBox = styled(Box)({
 });
 
 const ReviewerItem = ({ name, email, members = [] }) => {
+  // FIXME: Por que se llama onDeleteReviewer  solo debería ser deleteReviewer
   const { onDeletedReviewer } = useContext(ReviewerContext);
 
   const onDelete = async () => {

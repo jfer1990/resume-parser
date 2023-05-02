@@ -28,6 +28,7 @@ const StyledGrid = styled(Grid)({
   overflow: 'hidden',
 });
 
+// FIXME el nombre de la carpeta padre de este componente esta mal escrita debería ser ReviewersTable y si la carpeta se llama igual que este componente entonces este archivo debería llamarse index.jsx y exportar por defecto este componente
 export const ReviewersTable = () => {
   const [reviewItems, setReviewItems] = useState([]);
 

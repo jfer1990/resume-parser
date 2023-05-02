@@ -20,9 +20,11 @@ const ReviewerProvider = ({ children }) => {
   const onAddStudent = (form) => {
     setStudents((students) => [...students, form]);
   };
+  // FIXME: Pesima implementación de esta función
   const onDeletedStudent = (students) => {
     setStudents(students);
   };
+  // FIXME: Pesima implementación de esta función
   const onDeletedReviewer = (reviewers) => {
     setReviewers(reviewers);
   };

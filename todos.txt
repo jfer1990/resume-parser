@@ -1,6 +1,0 @@
-1.- TODO: BE/FE Crear botón para reasignar candidatos con reviewers por si algo no salio bien o nos gusto la asignación del dia.
-
-3.- TODO: BE/FE Cambiar el termino student por member tanto en api como en frontend
-
-4.- TODO: FE hacer responsivo el sitio
-

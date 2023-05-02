@@ -7,6 +7,7 @@ import { ReviewerContext } from '../../context/ReviewerContext';
 
 const StudentItem = ({ name, email }) => {
   // FIXME: Es inseguro settear todos los usuarios es mejor que hubiera una función solo para añadir un nuevo estudiante
+  // FIXME: Por que se llama onDeletedStudent solo debería ser deleteStudent
   const { onDeletedStudent } = useContext(ReviewerContext);
 
   const onDelete = async () => {
@@ -36,11 +37,11 @@ const StudentItem = ({ name, email }) => {
       <ListItemIcon sx={{ margin: 2 }}>
         <PersonOutline />
       </ListItemIcon>
-      {/* FIXME: arreglar botton */}
+      {/* FIXME: arreglar boton */}
       <RemoveIconModal name={name} onDelete={onDelete} left={230} top={17} />
       <Grid container>
         <ListItemText primary={name} />
-
+        {/* FIXME: de que sirve este comentario aqui? */}
         {/* <ListItemText secondary={email} /> */}
       </Grid>
     </ListItem>
@@ -53,3 +54,4 @@ StudentItem.propTypes = {
 };
 
 export { StudentItem };
+
