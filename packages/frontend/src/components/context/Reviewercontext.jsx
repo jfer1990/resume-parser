@@ -6,6 +6,10 @@ export const ReviewerContext = createContext({
   setReviewers: null,
   students: [],
   setStudents: null,
+  onAddReviewer: null,
+  onDeletedStudent: null,
+  onAddStudent: null,
+  onDeletedReviewer: null,
 });
 
 const ReviewerProvider = ({ children }) => {
@@ -50,5 +54,4 @@ const ReviewerProvider = ({ children }) => {
 ReviewerProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 };
-
 export { ReviewerProvider };

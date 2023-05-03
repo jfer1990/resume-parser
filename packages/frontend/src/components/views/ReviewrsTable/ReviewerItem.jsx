@@ -15,6 +15,15 @@ const StyledIconBox = styled(Box)({
   borderRadius: 10,
   margin: 8,
   padding: 6,
+  ':hover .MuiBox-root': { backgroundColor: 'red', width: '50px', transition: 'all 0.5s ease' },
+});
+
+const StyledRemove = styled(Box)({
+  position: 'absolute',
+  right: 0,
+  transition: 'all 0.5s ease',
+  width: '0px',
+  overflow: 'hidden',
 });
 
 const ReviewerItem = ({ name, email, members = [] }) => {
@@ -53,6 +62,7 @@ const ReviewerItem = ({ name, email, members = [] }) => {
         </Typography>
         {/* FIXME: arreglar botton */}
         <RemoveIconModal name={name} onDelete={onDelete} left={420} top={11} />
+        <StyledRemove>X</StyledRemove>
       </StyledIconBox>
 
       <List sx={{ background: 'white', borderRadius: 3, margin: 1 }}>
