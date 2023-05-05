@@ -1,16 +1,14 @@
 import { ArrowBack, SaveOutlined } from '@mui/icons-material';
 import { Button, FormControl, Grid, TextField, Typography } from '@mui/material';
-import { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ComponentButton } from '../common/ComponentButton';
-import { ReviewerContext } from '../context/ReviewerContext';
 
-// FIXME: Este componente es muy parecido a AddReviewerInput.jsx, se puede hacer un componente reutilizable que reciba los datos que cambian por props
-export const AddMemberInput = () => {
-  const { onAddMember } = useContext(ReviewerContext);
+export const AddUserInput = ({ member, reviewer, onAdd }) => {
   const [form, setForm] = useState({
-    name: '',
-    email: '',
+    name: member?.name ?? reviewer?.name ?? '',
+    email: member?.email ?? reviewer?.email ?? '',
   });
   const navigate = useNavigate();
 
@@ -27,7 +25,7 @@ export const AddMemberInput = () => {
         throw new Error('El nombre no puede estar vacío');
       }
       event.preventDefault();
-      const path = import.meta.env.VITE_REACT_APP_REST_API + '/students';
+      const path = import.meta.env.VITE_REACT_APP_REST_API + (member ? '/students' : '/reviewers');
       const response = await fetch(path, {
         method: 'POST',
         headers: {
@@ -37,20 +35,21 @@ export const AddMemberInput = () => {
       });
 
       if (response.status === 200) {
-        onAddMember(form);
+        onAdd(form);
         navigate('/');
       } else {
-        throw new Error('Hubo un problema al agregar el estudiante.');
+        throw new Error(`Hubo un problema al agregar el ${member ? 'estudiante' : 'revisor'}.`);
       }
     } catch (e) {
-      console.log('error on submit ', e);
+      console.log(`Error on submit ${member ? 'member' : 'reviewer'}:`, e);
     }
   };
+
   return (
     <Grid container direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
       <Grid item>
         <Typography fontSize={39} fontWeight="light">
-          Agregar un Estudiante:
+          Agregar {member ? 'un Estudiante' : 'un Revisor'}:
         </Typography>
       </Grid>
 
@@ -88,10 +87,16 @@ export const AddMemberInput = () => {
           </FormControl>
         </form>
 
-        <ComponentButton route={'/'} right={18} bottom={35}>
+        <ComponentButton route={'/'} right={67} bottom={40}>
           <ArrowBack sx={{ fontSize: 30 }} />
         </ComponentButton>
       </Grid>
     </Grid>
   );
+};
+
+AddUserInput.propTypes = {
+  member: PropTypes.string.isRequired,
+  reviewer: PropTypes.string.isRequired,
+  onAdd: PropTypes.func.isRequired,
 };

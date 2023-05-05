@@ -18,28 +18,6 @@ export const AddReviewerInput = () => {
   };
 
   const onSubmit = async () => {
-    // try {
-    //       const { data } = useFetch(`${import.meta.env.VITE_REACT_APP_REST_API}/reviwers`, {
-    //         method: 'POST',
-    //         body: JSON.stringify(form),
-    //       });
-    //       console.log(data);
-
-    //       if (!form.name) {
-    //         throw new Error('El nombre no puede estar vacío');
-    //       }
-
-    //       if (data.status === 200) {
-    //         onAddReviewer(form);
-    //         navigate('/');
-    //       } else {
-    //         throw new Error('Hubo un problema al agregar el estudiante.');
-    //       }
-    //     } catch (e) {
-    //       console.log('error on submit ', e);
-    //     }
-    //   };
-
     try {
       if (!form.name) {
         throw new Error('El nombre no puede estar vacío');
@@ -104,7 +82,7 @@ export const AddReviewerInput = () => {
         </FormControl>
       </form>
 
-      <ComponentButton route={'/'} right={67} bottom={40}>
+      <ComponentButton route={'/'} right={18} bottom={35}>
         <ArrowBack sx={{ fontSize: 30 }} />
       </ComponentButton>
     </Grid>

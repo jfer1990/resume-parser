@@ -52,7 +52,7 @@ const ReviewerItem = ({ name, email, members = [] }) => {
       item
       xs={4}
       sx={{
-        minWidth: '170px',
+        minWidth: '245px',
         minHeight: '140px',
       }}
     >
@@ -72,9 +72,8 @@ const ReviewerItem = ({ name, email, members = [] }) => {
               <ListItemIcon>
                 <PersonOutline sx={{ color: 'primary.main' }} />
               </ListItemIcon>
-              <Grid container>
-                <ListItemText primary={member.name} />
-              </Grid>
+
+              <ListItemText primary={member.name} />
             </ListItemButton>
           </ListItem>
         ))}

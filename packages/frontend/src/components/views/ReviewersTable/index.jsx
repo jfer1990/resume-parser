@@ -17,8 +17,8 @@ const StyledIconButton = styled(IconButton)({
   backgroundColor: '#32CD32',
   ':hover': { backgroundColor: '#32CD32', opacity: 0.5 },
   position: 'absolute',
-  right: 37,
-  top: 100,
+  right: 21,
+  top: 83,
 });
 const StyledGrid = styled(Grid)({
   alignItems: 'center',
@@ -59,7 +59,7 @@ export const ReviewersTable = () => {
           <ReviewerItem key={reviewer.id} name={reviewer.name} email={reviewer.email} members={reviewer.members} />
         ))}
 
-        <ComponentButton route={'/add-reviewer'} right={50} bottom={40}>
+        <ComponentButton route={'/add-reviewer'} right={20} bottom={37}>
           <AddOutlined sx={{ fontSize: 30 }} />
         </ComponentButton>
         <StyledIconButton size="large">

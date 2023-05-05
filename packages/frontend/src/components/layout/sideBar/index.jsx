@@ -13,6 +13,7 @@ const StyledDrawer = styled(Drawer)({
 export const SideBar = () => {
   const { members, setMembers, open, setOpen } = useContext(ReviewerContext);
 
+  // @ts-ignore
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   useEffect(() => {

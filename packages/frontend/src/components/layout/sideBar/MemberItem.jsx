@@ -34,7 +34,7 @@ const MemberItem = ({ name, email }) => {
   return (
     <ListItem key={name} disablePadding>
       {/* TODO: Debería haber una ventana modal que te pregunte si estas seguro de eliminar al estudiante ya que no queremos eliminar estudiantes por error esta acción no debería ser fácil*/}
-      <ListItemIcon sx={{ margin: 2 }}>
+      <ListItemIcon sx={{ minWidth: '37px', margin: '12px' }}>
         <PersonOutline />
       </ListItemIcon>
       {/* FIXME: arreglar boton */}
