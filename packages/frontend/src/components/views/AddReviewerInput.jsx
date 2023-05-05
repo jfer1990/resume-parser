@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ComponentButton } from '../common/ComponentButton';
 import { ReviewerContext } from '../context/ReviewerContext';
 
-// FIXME: Este componente es muy parecido a AddStudentInput.jsx, se puede hacer un componente reutilizable que reciba los datos que cambian por props
+// FIXME: Este componente es muy parecido a AddmemberInput.jsx, se puede hacer un componente reutilizable que reciba los datos que cambian por props
 export const AddReviewerInput = () => {
   const { onAddReviewer } = useContext(ReviewerContext);
   const [form, setForm] = useState({ name: '', email: '' });

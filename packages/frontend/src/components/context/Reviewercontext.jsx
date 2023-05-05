@@ -4,32 +4,36 @@ import { createContext, useState } from 'react';
 export const ReviewerContext = createContext({
   reviewers: [],
   setReviewers: null,
-  students: [],
-  setStudents: null,
+  members: [],
+  setMembers: null,
   onAddReviewer: null,
-  onDeletedStudent: null,
-  onAddStudent: null,
-  onDeletedReviewer: null,
+  deletedMember: null,
+  onAddMember: null,
+  deletedReviewer: null,
+  open: false,
+  setOpen: null,
 });
 
 const ReviewerProvider = ({ children }) => {
-  const [students, setStudents] = useState([]);
+  const [members, setMembers] = useState([]);
 
   const [reviewers, setReviewers] = useState([]);
+
+  const [open, setOpen] = useState(false);
 
   const onAddReviewer = (form) => {
     setReviewers((reviewers) => [...reviewers, form]);
   };
 
-  const onAddStudent = (form) => {
-    setStudents((students) => [...students, form]);
+  const onAddMember = (form) => {
+    setMembers((members) => [...members, form]);
   };
   // FIXME: Pesima implementación de esta función
-  const onDeletedStudent = (students) => {
-    setStudents(students);
+  const deletedMember = (members) => {
+    setMembers(members);
   };
   // FIXME: Pesima implementación de esta función
-  const onDeletedReviewer = (reviewers) => {
+  const deletedReviewer = (reviewers) => {
     setReviewers(reviewers);
   };
 
@@ -38,12 +42,14 @@ const ReviewerProvider = ({ children }) => {
       value={{
         reviewers,
         setReviewers,
-        students,
-        setStudents,
+        members,
+        setMembers,
         onAddReviewer,
-        onAddStudent,
-        onDeletedStudent,
-        onDeletedReviewer,
+        onAddMember,
+        deletedMember,
+        deletedReviewer,
+        open,
+        setOpen,
       }}
     >
       {children}

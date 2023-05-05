@@ -6,8 +6,8 @@ import { ComponentButton } from '../common/ComponentButton';
 import { ReviewerContext } from '../context/ReviewerContext';
 
 // FIXME: Este componente es muy parecido a AddReviewerInput.jsx, se puede hacer un componente reutilizable que reciba los datos que cambian por props
-export const AddStudentInput = () => {
-  const { onAddStudent } = useContext(ReviewerContext);
+export const AddMemberInput = () => {
+  const { onAddMember } = useContext(ReviewerContext);
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -37,7 +37,7 @@ export const AddStudentInput = () => {
       });
 
       if (response.status === 200) {
-        onAddStudent(form);
+        onAddMember(form);
         navigate('/');
       } else {
         throw new Error('Hubo un problema al agregar el estudiante.');

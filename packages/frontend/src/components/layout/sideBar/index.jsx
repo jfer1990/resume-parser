@@ -1,9 +1,9 @@
-import { AddOutlined } from '@mui/icons-material';
-import { Box, Divider, Drawer, List, Toolbar, Typography, styled } from '@mui/material';
+import { AddOutlined, MenuOpenOutlined } from '@mui/icons-material';
+import { Box, Divider, Drawer, IconButton, List, Toolbar, Typography, styled, useMediaQuery } from '@mui/material';
 import { useContext, useEffect } from 'react';
 import { ComponentButton } from '../../common/ComponentButton';
 import { ReviewerContext } from '../../context/ReviewerContext';
-import { StudentItem } from './StudentItem';
+import { MemberItem } from './MemberItem';
 
 const StyledDrawer = styled(Drawer)({
   display: 'block',
@@ -11,44 +11,48 @@ const StyledDrawer = styled(Drawer)({
 });
 
 export const SideBar = () => {
-  const { students, setStudents } = useContext(ReviewerContext);
+  const { members, setMembers, open, setOpen } = useContext(ReviewerContext);
+
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   useEffect(() => {
     (async () => {
       // FIXME: leer el todo numero 2 de la raíz del proyecto
-      const endPoint = import.meta.env.VITE_REACT_APP_REST_API + '/students/getAll';
+      const endPoint = import.meta.env.VITE_REACT_APP_REST_API + '/students/getAll'; //cambiar por members
       const response = await fetch(endPoint, { method: 'GET', headers: { 'Content-Type': 'aplication/json' } });
       const data = await response.json();
       const { students } = data;
-      console.log(students);
-      setStudents(students);
+
+      setMembers(students);
     })();
   }, []);
 
   return (
     <Box component="nav" sx={{ width: { sm: 280 }, flexShrink: { sm: 0 } }}>
-      {/* FIXME: Hay que hacer esto responsive */}
-      <StyledDrawer
-        variant="permanent" // temporary
-        open
-      >
+      <StyledDrawer variant={isSmallScreen ? 'temporary' : 'permanent'} open={!isSmallScreen || open}>
         <Toolbar>
+          {isSmallScreen && (
+            <IconButton onClick={() => setOpen(false)}>
+              <MenuOpenOutlined />
+            </IconButton>
+          )}
           <Typography variant="h6" noWrap component="div">
             ReviewApp
           </Typography>
         </Toolbar>
         <Divider />
 
-        {/* FIXME: Ver el TODO numero 3 de la raíz del proyecto */}
         <List>
-          {students.map((student) => (
-            <StudentItem key={student.id} name={student.name} email={student.email} />
+          {members.map((member) => (
+            <MemberItem key={member.id} name={member.name} email={member.email} />
           ))}
         </List>
 
-        <ComponentButton route={'/add-student'} right={15} bottom={15}>
-          <AddOutlined sx={{ fontSize: 20 }} />
-        </ComponentButton>
+        {isSmallScreen && (
+          <ComponentButton route={'/add-member'} right={15} bottom={15}>
+            <AddOutlined sx={{ fontSize: 20 }} />
+          </ComponentButton>
+        )}
       </StyledDrawer>
     </Box>
   );

@@ -5,14 +5,14 @@ import { useContext } from 'react';
 import { RemoveIconModal } from '../../common/RemoveIconModal';
 import { ReviewerContext } from '../../context/ReviewerContext';
 
-const StudentItem = ({ name, email }) => {
+const MemberItem = ({ name, email }) => {
   // FIXME: Es inseguro settear todos los usuarios es mejor que hubiera una función solo para añadir un nuevo estudiante
-  // FIXME: Por que se llama onDeletedStudent solo debería ser deleteStudent
-  const { onDeletedStudent } = useContext(ReviewerContext);
+
+  const { deletedMember } = useContext(ReviewerContext);
 
   const onDelete = async () => {
     try {
-      const path = import.meta.env.VITE_REACT_APP_REST_API + '/students';
+      const path = import.meta.env.VITE_REACT_APP_REST_API + '/students'; //cambiar por member
       const response = await fetch(path, {
         method: 'DELETE',
         headers: {
@@ -25,7 +25,7 @@ const StudentItem = ({ name, email }) => {
       const { candidates } = data;
 
       // FIXME: solo se debería eliminar el usuario que se elimino del array de estudiante del contexto
-      onDeletedStudent(candidates);
+      deletedMember(candidates);
     } catch (e) {
       console.log('error on submit ', e);
     }
@@ -41,17 +41,14 @@ const StudentItem = ({ name, email }) => {
       <RemoveIconModal name={name} onDelete={onDelete} left={230} top={17} />
       <Grid container>
         <ListItemText primary={name} />
-        {/* FIXME: de que sirve este comentario aqui? */}
-        {/* <ListItemText secondary={email} /> */}
       </Grid>
     </ListItem>
   );
 };
 
-StudentItem.propTypes = {
+MemberItem.propTypes = {
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
 };
 
-export { StudentItem };
-
+export { MemberItem };

@@ -27,8 +27,7 @@ const StyledRemove = styled(Box)({
 });
 
 const ReviewerItem = ({ name, email, members = [] }) => {
-  // FIXME: Por que se llama onDeleteReviewer  solo debería ser deleteReviewer
-  const { onDeletedReviewer } = useContext(ReviewerContext);
+  const { deletedReviewer } = useContext(ReviewerContext);
 
   const onDelete = async () => {
     try {
@@ -43,7 +42,7 @@ const ReviewerItem = ({ name, email, members = [] }) => {
       // FIXME: BE-FIX Este endpoint esta mal diseñado debería devolver un 200 si todo salio bien y ya y si acaso regresar el estudiante eliminado
       const data = await response.json();
       const { reviewers } = data;
-      onDeletedReviewer(reviewers);
+      deletedReviewer(reviewers);
     } catch (e) {
       console.log('error on submit ', e);
     }
@@ -53,7 +52,8 @@ const ReviewerItem = ({ name, email, members = [] }) => {
       item
       xs={4}
       sx={{
-        minHeight: '300px',
+        minWidth: '170px',
+        minHeight: '140px',
       }}
     >
       <StyledIconBox>

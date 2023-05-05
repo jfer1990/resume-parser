@@ -2,12 +2,12 @@
 
 // [ ] TODO: FE Crear alguna hook o helper usando react query o una herramienta similar para controlar los llamados al api y evitar crear instancias de fetch por todos lados.
 
-// [ ] TODO: BE/FE Cambiar el termino student por member tanto en api como en frontend
+// [x] TODO: BE/FE Cambiar el termino student por member tanto en api como en frontend
 
 // [x] TODO: FE la carpeta reviewers que esta dentro de src solo debería llamarse components
 
 // [ ] TODO: FE hacer responsivo el sitio
 
-// [ ] TODO: BE/FE Como borro un reviewer? sin que sea fácil de hacer.
+// [] TODO: BE/FE Como borro un reviewer? sin que sea fácil de hacer.
 
-// [ ] TODO: Eliminar console.log's del proyecto
+// [x] TODO: Eliminar console.log's del proyecto

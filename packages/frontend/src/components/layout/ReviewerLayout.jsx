@@ -11,7 +11,7 @@ const ReviewerLayout = ({ children }) => {
     <Box sx={{ display: 'flex' }}>
       <NavBar />
       <SideBar />
-      <Box component="main" sx={{ p: 3, flexGrow: 1, marginTop: 8 }}>
+      <Box component="main" sx={{ p: '14px', flexGrow: 1, marginTop: 8 }}>
         {children}
       </Box>
     </Box>
