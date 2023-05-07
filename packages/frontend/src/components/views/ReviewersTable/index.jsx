@@ -1,8 +1,9 @@
-import { AddOutlined, Autorenew } from '@mui/icons-material';
-import { Box, Grid, IconButton, styled } from '@mui/material';
+import { AddOutlined } from '@mui/icons-material';
+import { Box, Grid, styled } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { ComponentButton } from '../../common/ComponentButton';
 import ReviewerItem from './ReviewerItem';
+import { RollMembers } from './RollMembers';
 
 const StyledBox = styled(Box)({
   alignItems: 'center',
@@ -12,14 +13,7 @@ const StyledBox = styled(Box)({
   backgroundColor: '#262254',
   borderRadius: 15,
 });
-const StyledIconButton = styled(IconButton)({
-  color: 'white',
-  backgroundColor: '#32CD32',
-  ':hover': { backgroundColor: '#32CD32', opacity: 0.5 },
-  position: 'absolute',
-  right: 21,
-  top: 83,
-});
+
 const StyledGrid = styled(Grid)({
   alignItems: 'center',
   justifyContent: 'center',
@@ -62,9 +56,7 @@ export const ReviewersTable = () => {
         <ComponentButton route={'/add-reviewer'} right={20} bottom={37}>
           <AddOutlined sx={{ fontSize: 30 }} />
         </ComponentButton>
-        <StyledIconButton size="large">
-          <Autorenew />
-        </StyledIconButton>
+        <RollMembers />
       </StyledGrid>
     </StyledBox>
   );

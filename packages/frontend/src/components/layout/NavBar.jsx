@@ -20,7 +20,7 @@ export const NavBar = () => {
             noWrap
             component="div"
             sx={{
-              marginLeft: isSmallScreen ? 0 : '235px',
+              marginLeft: isSmallScreen ? 0 : '248px',
               fontSize: isSmallScreen ? '1.7rem' : '2.12rem',
             }}
           >

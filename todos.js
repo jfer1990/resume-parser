@@ -6,8 +6,8 @@
 
 // [x] TODO: FE la carpeta reviewers que esta dentro de src solo debería llamarse components
 
-// [ ] TODO: FE hacer responsivo el sitio
+// [x] TODO: FE hacer responsivo el sitio
 
-// [] TODO: BE/FE Como borro un reviewer? sin que sea fácil de hacer.
+// [x] TODO: BE/FE Como borro un reviewer? sin que sea fácil de hacer.
 
 // [x] TODO: Eliminar console.log's del proyecto

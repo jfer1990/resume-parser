@@ -4,9 +4,6 @@ import { NavBar } from './NavBar';
 import { SideBar } from './sideBar';
 
 const ReviewerLayout = ({ children }) => {
-  {
-    /*  FIXME: box responsive para diferentes tamaños*/
-  }
   return (
     <Box sx={{ display: 'flex' }}>
       <NavBar />

@@ -7,7 +7,7 @@ import { MemberItem } from './MemberItem';
 
 const StyledDrawer = styled(Drawer)({
   display: 'block',
-  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 280 },
+  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 300 },
 });
 
 export const SideBar = () => {
@@ -29,7 +29,7 @@ export const SideBar = () => {
   }, []);
 
   return (
-    <Box component="nav" sx={{ width: { sm: 280 }, flexShrink: { sm: 0 } }}>
+    <Box component="nav" sx={{ width: { sm: 300 }, flexShrink: { sm: 0 } }}>
       <StyledDrawer variant={isSmallScreen ? 'temporary' : 'permanent'} open={!isSmallScreen || open}>
         <Toolbar>
           {isSmallScreen && (

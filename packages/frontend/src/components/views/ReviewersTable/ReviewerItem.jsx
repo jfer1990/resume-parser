@@ -5,8 +5,6 @@ import { useContext } from 'react';
 import { RemoveIconModal } from '../../common/RemoveIconModal';
 import { ReviewerContext } from '../../context/ReviewerContext';
 
-// FIXME: Este componente no es responsivo, debería de ser responsivo
-
 const StyledIconBox = styled(Box)({
   position: 'relative',
   justifyContent: 'center',
@@ -16,13 +14,6 @@ const StyledIconBox = styled(Box)({
   margin: 8,
   padding: 6,
   ':hover .MuiBox-root': { backgroundColor: 'red', width: '50px', transition: 'all 0.5s ease' },
-});
-
-const StyledRemove = styled(Box)({
-  position: 'absolute',
-  right: 0,
-  transition: 'all 0.5s ease',
-  width: '0px',
   overflow: 'hidden',
 });
 
@@ -60,9 +51,8 @@ const ReviewerItem = ({ name, email, members = [] }) => {
         <Typography color="white" variant="h6" textAlign="center">
           {name}
         </Typography>
-        {/* FIXME: arreglar botton */}
-        <RemoveIconModal name={name} onDelete={onDelete} left={420} top={11} />
-        <StyledRemove>X</StyledRemove>
+
+        <RemoveIconModal name={name} onDelete={onDelete} />
       </StyledIconBox>
 
       <List sx={{ background: 'white', borderRadius: 3, margin: 1 }}>

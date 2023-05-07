@@ -1,14 +1,16 @@
 import { ArrowBack, SaveOutlined } from '@mui/icons-material';
 import { Button, FormControl, Grid, TextField, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ComponentButton } from '../common/ComponentButton';
+import { ReviewerContext } from '../context/ReviewerContext';
 
-export const AddUserInput = ({ member, reviewer, onAdd }) => {
+const AddUserInput = ({ user }) => {
+  const { onAddReviewer, onAddMember } = useContext(ReviewerContext);
   const [form, setForm] = useState({
-    name: member?.name ?? reviewer?.name ?? '',
-    email: member?.email ?? reviewer?.email ?? '',
+    name: '',
+    email: '',
   });
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ export const AddUserInput = ({ member, reviewer, onAdd }) => {
         throw new Error('El nombre no puede estar vacío');
       }
       event.preventDefault();
-      const path = import.meta.env.VITE_REACT_APP_REST_API + (member ? '/students' : '/reviewers');
+      const path = import.meta.env.VITE_REACT_APP_REST_API + `/${user}s`;
       const response = await fetch(path, {
         method: 'POST',
         headers: {
@@ -35,13 +37,17 @@ export const AddUserInput = ({ member, reviewer, onAdd }) => {
       });
 
       if (response.status === 200) {
-        onAdd(form);
+        if (user === 'reviewer') {
+          onAddReviewer(form);
+        } else if (user === 'member') {
+          onAddMember(form);
+        }
         navigate('/');
       } else {
-        throw new Error(`Hubo un problema al agregar el ${member ? 'estudiante' : 'revisor'}.`);
+        throw new Error(`Hubo un problema al agregar el ${user}.`);
       }
     } catch (e) {
-      console.log(`Error on submit ${member ? 'member' : 'reviewer'}:`, e);
+      console.log('error on submit ', e);
     }
   };
 
@@ -49,7 +55,7 @@ export const AddUserInput = ({ member, reviewer, onAdd }) => {
     <Grid container direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
       <Grid item>
         <Typography fontSize={39} fontWeight="light">
-          Agregar {member ? 'un Estudiante' : 'un Revisor'}:
+          Agregar {user}:
         </Typography>
       </Grid>
 
@@ -87,7 +93,7 @@ export const AddUserInput = ({ member, reviewer, onAdd }) => {
           </FormControl>
         </form>
 
-        <ComponentButton route={'/'} right={67} bottom={40}>
+        <ComponentButton route={'/'} right={18} bottom={35}>
           <ArrowBack sx={{ fontSize: 30 }} />
         </ComponentButton>
       </Grid>
@@ -96,7 +102,7 @@ export const AddUserInput = ({ member, reviewer, onAdd }) => {
 };
 
 AddUserInput.propTypes = {
-  member: PropTypes.string.isRequired,
-  reviewer: PropTypes.string.isRequired,
-  onAdd: PropTypes.func.isRequired,
+  user: PropTypes.string.isRequired,
 };
+
+export default AddUserInput;

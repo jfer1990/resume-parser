@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import RemoveIcon from '@mui/icons-material/Remove';
+import { DeleteForever } from '@mui/icons-material';
 import { Box, Button, Modal, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-export const RemoveIconModal = ({ name, onDelete, left, top }) => {
+export const RemoveIconModal = ({ name, onDelete }) => {
   const [open, setOpen] = useState(false);
   const StyledModalBox = styled(Box)({
     position: 'absolute',
@@ -19,26 +19,30 @@ export const RemoveIconModal = ({ name, onDelete, left, top }) => {
     minWidth: 300,
     textAlign: 'center',
   });
+  const StyledRemove = styled(Box)({
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    transition: 'all 0.5s ease',
+    width: '0px',
+    overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '45px',
+  });
   return (
     <div>
-      <RemoveIcon
-        cursor="pointer"
-        onClick={() => setOpen(true)}
-        sx={{
-          color: 'white',
-          position: 'absolute',
-          opacity: '0',
-          left: { left },
-          top: { top },
-          '&:hover': {
-            opacity: '100%',
-            backgroundColor: 'red', // Color de fondo en hover
-            width: '25px',
-            borderRadius: '50%',
-            transform: 'scale(1.2)',
-          },
-        }}
-      />
+      <StyledRemove>
+        <DeleteForever
+          cursor="pointer"
+          onClick={() => setOpen(true)}
+          sx={{
+            color: 'white',
+          }}
+        />
+      </StyledRemove>
+
       <Modal open={open} onClose={() => setOpen(false)}>
         <StyledModalBox>
           <Typography variant="h6" gutterBottom>
@@ -64,6 +68,4 @@ export const RemoveIconModal = ({ name, onDelete, left, top }) => {
 RemoveIconModal.propTypes = {
   name: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
-  left: PropTypes.number.isRequired,
-  top: PropTypes.number.isRequired,
 };
