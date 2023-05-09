@@ -1,6 +1,8 @@
-import { AddOutlined, MenuOpenOutlined } from '@mui/icons-material';
+import { AddOutlined, HourglassEmpty, MenuOpenOutlined } from '@mui/icons-material';
 import { Box, Divider, Drawer, IconButton, List, Toolbar, Typography, styled, useMediaQuery } from '@mui/material';
 import { useContext, useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { fetchMembers } from '../../../utils/fetch';
 import { ComponentButton } from '../../common/ComponentButton';
 import { ReviewerContext } from '../../context/ReviewerContext';
 import { MemberItem } from './MemberItem';
@@ -11,22 +13,26 @@ const StyledDrawer = styled(Drawer)({
 });
 
 export const SideBar = () => {
+  // @ts-ignore
   const { members, setMembers, open, setOpen } = useContext(ReviewerContext);
 
-  // @ts-ignore
+  const { data, isLoading, isError } = useQuery(['data'], fetchMembers);
+
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   useEffect(() => {
-    (async () => {
-      // FIXME: leer el todo numero 2 de la raíz del proyecto
-      const endPoint = import.meta.env.VITE_REACT_APP_REST_API + '/students/getAll'; //cambiar por members
-      const response = await fetch(endPoint, { method: 'GET', headers: { 'Content-Type': 'aplication/json' } });
-      const data = await response.json();
-      const { students } = data;
+    if (data && data.students) {
+      setMembers(data.students);
+    }
+  }, [data, setMembers]);
 
-      setMembers(students);
-    })();
-  }, []);
+  if (isLoading) {
+    return <HourglassEmpty />;
+  }
+
+  if (isError) {
+    return <div>Error al cargar los datos de los estudiantes.</div>;
+  }
 
   return (
     <Box component="nav" sx={{ width: { sm: 300 }, flexShrink: { sm: 0 } }}>

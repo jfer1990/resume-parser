@@ -1,6 +1,8 @@
 import { AddOutlined } from '@mui/icons-material';
 import { Box, Grid, styled } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
+import { fetchReviewers } from '../../../utils/fetch';
 import { ComponentButton } from '../../common/ComponentButton';
 import ReviewerItem from './ReviewerItem';
 import { RollMembers } from './RollMembers';
@@ -25,26 +27,29 @@ const StyledGrid = styled(Grid)({
 export const ReviewersTable = () => {
   const [reviewItems, setReviewItems] = useState([]);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const assignmentsPath = import.meta.env.VITE_REACT_APP_REST_API + '/reviewers/getTodayAssignation';
-        const response = await fetch(assignmentsPath);
-        const { assignments } = await response.json();
-        const reviewers = assignments
-          .map((assignment) => ({
-            id: assignment.reviewer.id,
-            name: assignment.reviewer.name,
-            email: assignment.reviewer.email,
-            members: assignment.reviewer.assigned_students, //cambiar por members
-          }))
-          .sort((a, b) => a.name.localeCompare(b.name));
-        setReviewItems(reviewers);
-      } catch (e) {
-        console.log('error', e);
-      }
-    })();
-  }, []);
+  const { data, isLoading, isError } = useQuery(['data'], fetchReviewers);
+  if (isLoading) {
+    return <div>Cargando los datos de los estudiantes.</div>;
+  }
+
+  if (isError) {
+    return <div>Error al cargar los datos de los estudiantes.</div>;
+  }
+
+  if (data && data.assignments) {
+    // setReviewItems(data.students);
+    console.log(data);
+  }
+
+  // const reviewers = data.assignments
+  //   .map((assignment) => ({
+  //     id: assignment.reviewer.id,
+  //     name: assignment.reviewer.name,
+  //     email: assignment.reviewer.email,
+  //     members: assignment.reviewer.assigned_students,
+  //   }))
+  //   .sort((a, b) => a.name.localeCompare(b.name));
+  // setReviewItems(reviewers);
 
   return (
     <StyledBox>

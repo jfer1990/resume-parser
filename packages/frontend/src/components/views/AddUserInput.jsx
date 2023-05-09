@@ -2,7 +2,9 @@ import { ArrowBack, SaveOutlined } from '@mui/icons-material';
 import { Button, FormControl, Grid, TextField, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
+import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { addUser } from '../../utils/fetch';
 import { ComponentButton } from '../common/ComponentButton';
 import { ReviewerContext } from '../context/ReviewerContext';
 
@@ -21,22 +23,26 @@ const AddUserInput = ({ user }) => {
     }));
   };
 
+  const { mutate, isLoading, isError, data } = useMutation(addUser);
   const onSubmit = async (event) => {
     try {
       if (!form.name) {
         throw new Error('El nombre no puede estar vacío');
       }
       event.preventDefault();
-      const path = import.meta.env.VITE_REACT_APP_REST_API + `/${user}s`;
-      const response = await fetch(path, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      });
+      if (isLoading) {
+        return <div>Cargando la peticion</div>;
+      }
 
-      if (response.status === 200) {
+      if (isError) {
+        return <div>Error al cargar la peticion</div>;
+      }
+
+      if (data) {
+        mutate(form);
+        console.log(data);
+      }
+      if (data.status === 200) {
         if (user === 'reviewer') {
           onAddReviewer(form);
         } else if (user === 'member') {

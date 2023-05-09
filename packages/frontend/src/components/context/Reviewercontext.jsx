@@ -29,12 +29,12 @@ const ReviewerProvider = ({ children }) => {
     setMembers((members) => [...members, form]);
   };
   // FIXME: Pesima implementación de esta función
-  const deletedMember = (name) => {
-    setMembers((prevMembers) => prevMembers.filter((member) => member.name !== name));
+  const deletedMember = (emailExample) => {
+    setMembers((prevMembers) => prevMembers.filter((member) => member.emailExample !== emailExample));
   };
   // FIXME: Pesima implementación de esta función
-  const deletedReviewer = (name) => {
-    setReviewers((prevMembers) => prevMembers.filter((member) => member.name !== name));
+  const deletedReviewer = (email) => {
+    setReviewers((prevMembers) => prevMembers.filter((member) => member.email !== email));
   };
 
   return (

@@ -29,10 +29,12 @@ const MemberItem = ({ name, email }) => {
       });
       // FIXME: BE-FIX Este endpoint esta mal diseñado debería devolver un 200 si todo salio bien y ya y si acaso regresar el estudiante eliminado
       const data = await response.json();
-      const { name } = data;
+
+      const { candidates } = data;
+      console.log(candidates);
 
       if (response.status === 200) {
-        deletedMember(name);
+        deletedMember(email);
       } else {
         throw new Error(`Hubo un problema al agregar el member`);
       }
