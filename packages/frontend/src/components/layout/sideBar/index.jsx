@@ -1,5 +1,5 @@
-import { AddOutlined, HourglassEmpty, MenuOpenOutlined } from '@mui/icons-material';
-import { Box, Divider, Drawer, IconButton, List, Toolbar, Typography, styled, useMediaQuery } from '@mui/material';
+import { AddOutlined, HourglassEmpty } from '@mui/icons-material';
+import { Box, Divider, Drawer, List, Toolbar, Typography, styled, useMediaQuery } from '@mui/material';
 import { useContext, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { fetchMembers } from '../../../utils/fetch';
@@ -35,14 +35,9 @@ export const SideBar = () => {
   }
 
   return (
-    <Box component="nav" sx={{ width: { sm: 300 }, flexShrink: { sm: 0 } }}>
+    <Box component="nav" sx={{ width: { sm: 300 }, flexShrink: { sm: 0 } }} onClick={() => setOpen(false)}>
       <StyledDrawer variant={isSmallScreen ? 'temporary' : 'permanent'} open={!isSmallScreen || open}>
         <Toolbar>
-          {isSmallScreen && (
-            <IconButton onClick={() => setOpen(false)}>
-              <MenuOpenOutlined />
-            </IconButton>
-          )}
           <Typography variant="h6" noWrap component="div">
             ReviewApp
           </Typography>
@@ -55,11 +50,9 @@ export const SideBar = () => {
           ))}
         </List>
 
-        {isSmallScreen && (
-          <ComponentButton route={'/add-member'} right={15} bottom={15}>
-            <AddOutlined sx={{ fontSize: 20 }} />
-          </ComponentButton>
-        )}
+        <ComponentButton route={'/add-member'} right={15} bottom={15}>
+          <AddOutlined sx={{ fontSize: 20 }} />
+        </ComponentButton>
       </StyledDrawer>
     </Box>
   );
