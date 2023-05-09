@@ -18,11 +18,10 @@ const randomSort = (array) => {
 };
 
 const assignNewRevisions = async (config = null) => {
-  const { reviewers: reviersData } = await getAllReviewers();
+  const { reviewers: reviewersData } = await getAllReviewers();
   const { members } = await getAllMembers();
 
-  const reviewers = reviersData.map(({ name, email } = data) => ({ name, email, members: [] }));
-
+  const reviewers = reviewersData.map(({ name, email, id } = data) => ({ name, email, id, members: [] }));
   //   if (!config) {
   //     //TODO the hard algorithm
   //     return;
@@ -32,8 +31,7 @@ const assignNewRevisions = async (config = null) => {
   //   console.log('members', members);
 
   randomSort(members);
-  const seeVal = JSON.stringify(distributeMembers(reviewers, members));
-  console.log(seeVal);
+  return distributeMembers(reviewers, members);
 };
 
 const distributeMembers = (reviewers, members) => {
@@ -47,9 +45,8 @@ const distributeMembers = (reviewers, members) => {
     reviewer.members = remainingMembers.splice(0, quota);
 
     revisions.push({
-      reviewerName: reviewer.name,
-      reviewerEmail: reviewer.email,
-      membersToReview: reviewer.members.map(({ name, email } = member) => ({ name, email })),
+      reviewer: reviewer.id,
+      members: reviewer.members.map(({ id } = member) => id),
     });
 
     // If all members have been assigned, break out of the loop

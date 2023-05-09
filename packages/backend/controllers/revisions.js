@@ -1,86 +1,53 @@
-import { getAllMembers, getAllReviewers } from '../helpers/getters.js';
+import moment from 'moment';
+import { getAllMembers } from '../helpers/getters.js';
+import Member from '../models/member.js';
+import Reviewer from '../models/reviewer.js';
 import Revision from '../models/revision.js';
 
 const getTodayRevision = async (req, res = response) => {
-  function shuffle(array) {
-    array.sort(() => Math.random() - 0.5);
-  }
-
-  const { members } = await getAllMembers();
-  const { reviewers } = await getAllReviewers();
-  if (members === undefined || members === null || members.length === 0) {
-    return res.json({
-      msg: 'Get random assignments API - No members to assign - controller',
-      assignments: {},
-    });
-  }
-  if (reviewers === undefined || reviewers === null || reviewers.length === 0) {
-    return res.json({
-      msg: 'Get random assignments API - No reviewers to assign - controller',
-      assignments: {},
-    });
-  }
-  const candidatesPerReviewer = members.length / reviewers.length;
-  const candidatesOffset = members.length % reviewers.length;
-
-  shuffle(members);
-  // shuffle(reviewers);
-
-  // getAssingationRule();
-
-  let candidatesFrom = 0;
-  let candidatesTo = candidatesPerReviewer;
-  const assignments = await Promise.all(
-    reviewers.map(async (reviewer) => {
-      if (candidatesOffset > 0) {
-        const candidatesToAssign = members.slice(candidatesFrom, candidatesTo + 1);
-        candidatesFrom += candidatesPerReviewer + 1;
-        candidatesTo += candidatesPerReviewer + 1;
-        const isSaved = await saveAssignments(candidatesToAssign, reviewer.id, reviewer);
-        if (isSaved) {
-          return {
-            reviewer: {
-              ...reviewer,
-              assigned_students: candidatesToAssign,
-            },
-          };
-        }
-      }
-      const candidatesToAssign = members.slice(candidatesFrom, candidatesTo);
-      candidatesFrom += candidatesPerReviewer;
-      candidatesTo += candidatesPerReviewer;
-      const isSaved = await saveAssignments(candidatesToAssign, reviewer.id, reviewer);
-      if (isSaved) {
-        return {
-          reviewer: {
-            ...reviewer,
-            assigned_students: candidatesToAssign,
-          },
-        };
-      }
-      const today = moment().startOf('day').toDate();
-      const { members: cands } = await Revision.findOne({
-        reviewerID: new mongoose.Types.ObjectId(reviewer.id),
-        date: today,
-      }).exec();
-      const assignedCandidates = cands.map((cand) => ({ id: cand.id, name: cand.name, email: cand.email }));
-      return {
-        reviewer: {
-          ...reviewer,
-          assigned_students: assignedCandidates,
-        },
-      };
-    })
-  );
-
+  const revisions = await Revision.find().populate('reviewer').populate('members'); // populate the members array
+  console.log('revisions', revisions);
   res.json({
     msg: 'Get random assignments API - controller',
-    assignments,
+    revisions,
   });
 };
 
-const postTodayRevision = async (req, res = response) => {};
+const putAssignments = async (req, res = response) => {
+  const { assignments } = req.body;
 
-const putAssignments = (req, res) => {};
+  let totalMembers = 0;
+  assignments.forEach((assignment) => {
+    console.log('loger', assignment.membersToAssign.length);
+    totalMembers += assignment.membersToAssign.length;
+  });
+  const { members: membersInDb } = await getAllMembers();
+  console.log('membersInDb', membersInDb);
+  if (membersInDb.length !== totalMembers)
+    return res.status(422).send({
+      msg: 'Mismatch Error: The total members to assign is different than the total members to be reviewed',
+    });
 
-export { putAssignments, getTodayRevision, postTodayRevision };
+  for (const assignment of assignments) {
+    const { membersToAssign, reviewerEmail } = assignment;
+
+    const membersID = await Promise.all(
+      membersToAssign.map(async (email) => {
+        const member = await Member.findOne({ email });
+        console.log('line37 member', member._id.toString());
+        return member._id.toString();
+      })
+    );
+
+    const { _id: reviewerID } = await Reviewer.findOne({ email: reviewerEmail });
+    console.log('line43 reviewerID', reviewerID.toString());
+    const date = moment().startOf('day').toDate();
+    const revision = await Revision.findOneAndUpdate({ date, reviewer: reviewerID.toString() }, { members: membersID });
+    res.status(200).send({
+      msg: 'Your revission has been updated',
+      revision,
+    });
+  }
+};
+
+export { putAssignments, getTodayRevision };

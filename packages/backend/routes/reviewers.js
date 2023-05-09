@@ -1,14 +1,6 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
-import {
-  deleteReviewer,
-  getAll,
-  getAllAsigns,
-  getCandidates,
-  getTodayRevision,
-  postReviewer,
-  putReviewer,
-} from '../controllers/reviewers.js';
+import { deleteReviewer, getAll, getAllAsigns, getCandidates, postReviewer, putReviewer } from '../controllers/reviewers.js';
 // import validarCampos from '../middlewares/validar-campos.js'
 import { existCandidateEmail } from '../helpers/db-validators.js';
 
@@ -17,8 +9,6 @@ const router = Router();
 router.get('/getAllAsigns', getAllAsigns);
 
 router.get('/getAllAsigns/:id', getCandidates);
-
-router.get('/getTodayAssignation', getTodayRevision);
 
 router.get('/getAll', getAll); // en lugar de all, getAll en todos | en los post agregar la palabra add/ | getTodayAssigns
 
