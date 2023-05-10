@@ -1,9 +1,9 @@
 import { PersonOutline } from '@mui/icons-material';
 import { Grid, ListItem, ListItemIcon, ListItemText, styled } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { deleteMember } from '../../../utils/fetch';
 import { RemoveIconModal } from '../../common/RemoveIconModal';
-import { ReviewerContext } from '../../context/ReviewerContext';
 
 const StyledListItem = styled(ListItem)({
   overflow: 'hidden',
@@ -15,29 +15,24 @@ const StyledListItem = styled(ListItem)({
 });
 
 const MemberItem = ({ name, email }) => {
-  const { deletedMember } = useContext(ReviewerContext);
+  const queryClient = useQueryClient(); // Move inside the component
 
+  const { status, mutate } = useMutation(deleteMember, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['students']);
+    },
+  });
   const onDelete = async () => {
     try {
-      const path = import.meta.env.VITE_REACT_APP_REST_API + '/students'; //cambiar por member
-      const response = await fetch(path, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: email }),
-      });
-      // FIXME: BE-FIX Este endpoint esta mal diseñado debería devolver un 200 si todo salio bien y ya y si acaso regresar el estudiante eliminado
-      const data = await response.json();
-
-      const { candidates } = data;
-      console.log(candidates);
-
-      if (response.status === 200) {
-        deletedMember(email);
-      } else {
-        throw new Error(`Hubo un problema al agregar el member`);
+      if (status === 'loading') {
+        return <div>Cargando los datos de los reviewers.</div>;
       }
+
+      if (status === 'error') {
+        return <div>Error al cargar los datos de los reviewers</div>;
+      }
+      mutate(email);
+
       // FIXME: solo se debería eliminar el usuario que se elimino del array de estudiante del contexto
     } catch (e) {
       console.log('error on submit ', e);
@@ -46,7 +41,6 @@ const MemberItem = ({ name, email }) => {
 
   return (
     <StyledListItem key={name} disablePadding>
-      {/* TODO: Debería haber una ventana modal que te pregunte si estas seguro de eliminar al estudiante ya que no queremos eliminar estudiantes por error esta acción no debería ser fácil*/}
       <ListItemIcon sx={{ minWidth: '37px', margin: '12px' }}>
         <PersonOutline />
       </ListItemIcon>

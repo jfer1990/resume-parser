@@ -1,4 +1,4 @@
-import { AddOutlined, HourglassEmpty } from '@mui/icons-material';
+import { AddOutlined } from '@mui/icons-material';
 import { Box, Divider, Drawer, List, Toolbar, Typography, styled, useMediaQuery } from '@mui/material';
 import { useContext, useEffect } from 'react';
 import { useQuery } from 'react-query';
@@ -16,7 +16,7 @@ export const SideBar = () => {
   // @ts-ignore
   const { members, setMembers, open, setOpen } = useContext(ReviewerContext);
 
-  const { data, isLoading, isError } = useQuery(['data'], fetchMembers);
+  const { data, status } = useQuery(['students'], fetchMembers);
 
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
@@ -26,11 +26,11 @@ export const SideBar = () => {
     }
   }, [data, setMembers]);
 
-  if (isLoading) {
-    return <HourglassEmpty />;
+  if (status === 'loading') {
+    return <div>Cargando los datos de los estudiantes.</div>;
   }
 
-  if (isError) {
+  if (status === 'error') {
     return <div>Error al cargar los datos de los estudiantes.</div>;
   }
 

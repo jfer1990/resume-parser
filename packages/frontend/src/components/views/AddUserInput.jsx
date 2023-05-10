@@ -2,9 +2,9 @@ import { ArrowBack, SaveOutlined } from '@mui/icons-material';
 import { Button, FormControl, Grid, TextField, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { addUser } from '../../utils/fetch';
+import { addMember, addReviewer } from '../../utils/fetch';
 import { ComponentButton } from '../common/ComponentButton';
 import { ReviewerContext } from '../context/ReviewerContext';
 
@@ -16,6 +16,7 @@ const AddUserInput = ({ user }) => {
   });
   const navigate = useNavigate();
 
+  const queryClient = useQueryClient();
   const OnInputChange = ({ target: { name, value } }) => {
     setForm((prev) => ({
       ...prev,
@@ -23,26 +24,27 @@ const AddUserInput = ({ user }) => {
     }));
   };
 
-  const { mutate, isLoading, isError, data } = useMutation(addUser);
+  const { status, mutate, isSuccess } = useMutation(user === 'reviewer' ? addReviewer : addMember, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([user === 'reviewer' ? 'reviewers' : 'students']);
+    },
+  });
   const onSubmit = async (event) => {
     try {
       if (!form.name) {
         throw new Error('El nombre no puede estar vacío');
       }
       event.preventDefault();
-      if (isLoading) {
-        return <div>Cargando la peticion</div>;
+      if (status === 'loading') {
+        return <div>Cargando los datos de los reviewers.</div>;
       }
 
-      if (isError) {
-        return <div>Error al cargar la peticion</div>;
+      if (status === 'error') {
+        return <div>Error al cargar los datos de los reviewers</div>;
       }
+      mutate(form);
 
-      if (data) {
-        mutate(form);
-        console.log(data);
-      }
-      if (data.status === 200) {
+      if (!isSuccess) {
         if (user === 'reviewer') {
           onAddReviewer(form);
         } else if (user === 'member') {

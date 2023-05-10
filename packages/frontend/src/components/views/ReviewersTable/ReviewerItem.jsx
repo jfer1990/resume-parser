@@ -1,9 +1,9 @@
 import { PersonOutline } from '@mui/icons-material';
 import { Box, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, styled } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { deleteReviewer } from '../../../utils/fetch';
 import { RemoveIconModal } from '../../common/RemoveIconModal';
-import { ReviewerContext } from '../../context/ReviewerContext';
 
 const StyledIconBox = styled(Box)({
   position: 'relative',
@@ -18,22 +18,25 @@ const StyledIconBox = styled(Box)({
 });
 
 const ReviewerItem = ({ name, email, members = [] }) => {
-  const { deletedReviewer } = useContext(ReviewerContext);
+  const queryClient = useQueryClient(); // Move inside the component
 
+  const { status, mutate } = useMutation(deleteReviewer, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['reviewers']);
+    },
+  });
   const onDelete = async () => {
     try {
-      const path = import.meta.env.VITE_REACT_APP_REST_API + '/reviewers';
-      const response = await fetch(path, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: email }),
-      });
-      // FIXME: BE-FIX Este endpoint esta mal diseñado debería devolver un 200 si todo salio bien y ya y si acaso regresar el estudiante eliminado
-      const data = await response.json();
-      const { reviewers } = data;
-      deletedReviewer(reviewers);
+      if (status === 'loading') {
+        return <div>Cargando los datos de los reviewers.</div>;
+      }
+
+      if (status === 'error') {
+        return <div>Error al cargar los datos de los reviewers</div>;
+      }
+      mutate(email);
+
+      // FIXME: solo se debería eliminar el usuario que se elimino del array de estudiante del contexto
     } catch (e) {
       console.log('error on submit ', e);
     }

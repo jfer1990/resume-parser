@@ -1,6 +1,6 @@
 import { AddOutlined } from '@mui/icons-material';
 import { Box, Grid, styled } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { fetchReviewers } from '../../../utils/fetch';
 import { ComponentButton } from '../../common/ComponentButton';
@@ -27,29 +27,29 @@ const StyledGrid = styled(Grid)({
 export const ReviewersTable = () => {
   const [reviewItems, setReviewItems] = useState([]);
 
-  const { data, isLoading, isError } = useQuery(['data'], fetchReviewers);
-  if (isLoading) {
+  const { data, status } = useQuery(['reviewers'], fetchReviewers);
+
+  useEffect(() => {
+    if (data && data.assignments) {
+      const reviewers = data.assignments
+        .map((assignment) => ({
+          id: assignment.reviewer.id,
+          name: assignment.reviewer.name,
+          email: assignment.reviewer.email,
+          members: assignment.reviewer.assigned_students,
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+      setReviewItems(reviewers);
+    }
+  }, [data]);
+
+  if (status === 'loading') {
     return <div>Cargando los datos de los estudiantes.</div>;
   }
 
-  if (isError) {
+  if (status === 'error') {
     return <div>Error al cargar los datos de los estudiantes.</div>;
   }
-
-  if (data && data.assignments) {
-    // setReviewItems(data.students);
-    console.log(data);
-  }
-
-  // const reviewers = data.assignments
-  //   .map((assignment) => ({
-  //     id: assignment.reviewer.id,
-  //     name: assignment.reviewer.name,
-  //     email: assignment.reviewer.email,
-  //     members: assignment.reviewer.assigned_students,
-  //   }))
-  //   .sort((a, b) => a.name.localeCompare(b.name));
-  // setReviewItems(reviewers);
 
   return (
     <StyledBox>
