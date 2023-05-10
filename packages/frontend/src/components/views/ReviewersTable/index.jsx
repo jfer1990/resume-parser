@@ -44,7 +44,7 @@ export const ReviewersTable = () => {
   }, [data]);
 
   if (status === 'loading') {
-    return <div>Cargando los datos de los estudiantes.</div>;
+    return <div className="loader">Loading...</div>;
   }
 
   if (status === 'error') {
