@@ -6,9 +6,19 @@ import Reviewer from '../models/reviewer.js';
 import Revision from '../models/revision.js';
 
 const getTodayRevision = async (req, res = response) => {
-  const date = moment().startOf('day').toDate();
-  const revisions = await Revision.find({ date }).populate('reviewer').populate('members'); // populate the members array
-  // console.log('revisions', revisions);
+  const today = moment().startOf('day');
+  const startTimestamp = today.toDate();
+  const endTimestamp = today.endOf('day').toDate();
+
+  const revisions = await Revision.find({
+    date: {
+      $gte: startTimestamp,
+      $lte: endTimestamp,
+    },
+  })
+    .populate('reviewer')
+    .populate('members');
+
   res.json({
     msg: 'Get random assignments API - controller',
     revisions,
@@ -16,16 +26,26 @@ const getTodayRevision = async (req, res = response) => {
 };
 
 const postTodayRevision = async (req, res = response) => {
-  const date = moment().startOf('day').toDate();
-  const revision = await Revision.findOne({ date });
-  if (revision)
+  const today = moment().startOf('day');
+  const startTimestamp = today.toDate();
+  const endTimestamp = today.endOf('day').toDate();
+
+  const revision = await Revision.findOne({
+    date: {
+      $gte: startTimestamp,
+      $lte: endTimestamp,
+    },
+  });
+
+  if (revision) {
     return res.status(400).send({
       msg: 'There is already a revision assigned for today',
     });
+  }
 
   const assignations = await assignNewRevisions();
   console.log(assignations);
-  const newRevision = await Revision.create([...assignations.map((a) => ({ date, ...a }))]);
+  const newRevision = await Revision.create([...assignations.map((a) => ({ date: today.toDate(), ...a }))]);
   // newRevision.save();
   res.status(202).send({
     msg: 'A new assignation has been created for today',
