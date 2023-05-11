@@ -1,15 +1,35 @@
 import moment from 'moment';
 import { getAllMembers } from '../helpers/getters.js';
+import { assignNewRevisions } from '../helpers/revisions.js';
 import Member from '../models/member.js';
 import Reviewer from '../models/reviewer.js';
 import Revision from '../models/revision.js';
 
 const getTodayRevision = async (req, res = response) => {
-  const revisions = await Revision.find().populate('reviewer').populate('members'); // populate the members array
+  const date = moment().startOf('day').toDate();
+  const revisions = await Revision.findOne({ date }).populate('reviewer').populate('members'); // populate the members array
   console.log('revisions', revisions);
   res.json({
     msg: 'Get random assignments API - controller',
     revisions,
+  });
+};
+
+const postTodayRevision = async (req, res = response) => {
+  const date = moment().startOf('day').toDate();
+  const revision = await Revision.findOne({ date });
+  if (revision)
+    return res.status(400).send({
+      msg: 'There is already a revision assigned for today',
+    });
+
+  const assignations = await assignNewRevisions();
+  console.log(assignations);
+  const newRevision = await Revision.create([...assignations.map((a) => ({ date, ...a }))]);
+  // newRevision.save();
+  res.status(202).send({
+    msg: 'A new assignation has been created for today',
+    revisions: newRevision,
   });
 };
 
@@ -50,4 +70,4 @@ const putAssignments = async (req, res = response) => {
   }
 };
 
-export { putAssignments, getTodayRevision };
+export { putAssignments, getTodayRevision, postTodayRevision };
