@@ -1,19 +1,22 @@
-import { SaveOutlined } from '@mui/icons-material';
+import { ArrowBack, SaveOutlined } from '@mui/icons-material';
 import { Button, FormControl, Grid, TextField, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { ReviewerContext } from '../components/context/ReviewerContext';
+import { addMember, addReviewer } from '../../utils/fetch';
+import { ComponentButton } from '../common/ComponentButton';
+import { ReviewerContext } from '../context/ReviewerContext';
 
-// FIXME: Como rayos salgo de aquí si entro por error y quiero regresar al home??
-// FIXME: Este componente es muy parecido a AddReviewerInput.jsx, se puede hacer un componente reutilizable que reciba los datos que cambian por props
-// FIXME: No quiero repetir las anotaciones en este componente, pero son las mismas que en AddReviewerInput.jsx por eso no las pongo, hay que refactorizar ambos ya que tienen el mismo problema y contenido
-export const AddStudentInput = () => {
-  const { setStudents } = useContext(ReviewerContext);
+const AddUserInput = ({ user }) => {
+  const { onAddReviewer, onAddMember } = useContext(ReviewerContext);
   const [form, setForm] = useState({
     name: '',
     email: '',
   });
+  const navigate = useNavigate();
 
+  const queryClient = useQueryClient();
   const OnInputChange = ({ target: { name, value } }) => {
     setForm((prev) => ({
       ...prev,
@@ -21,29 +24,46 @@ export const AddStudentInput = () => {
     }));
   };
 
+  const { status, mutate, isSuccess } = useMutation(user === 'reviewer' ? addReviewer : addMember, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([user === 'reviewer' ? 'reviewers' : 'students']);
+    },
+  });
   const onSubmit = async (event) => {
     try {
+      if (!form.name) {
+        throw new Error('El nombre no puede estar vacío');
+      }
       event.preventDefault();
-      const path = import.meta.env.VITE_REACT_APP_REST_API + '/students/';
-      await fetch(path, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      });
-      setStudents((students) => [...students, form]);
-      navigate('/');
+      if (status === 'loading') {
+        return <div>Cargando los datos de los reviewers.</div>;
+      }
+
+      if (status === 'error') {
+        return <div>Error al cargar los datos de los reviewers</div>;
+      }
+      mutate(form);
+
+      if (!isSuccess) {
+        if (user === 'reviewer') {
+          onAddReviewer(form);
+        } else if (user === 'member') {
+          onAddMember(form);
+        }
+        navigate('/');
+      } else {
+        throw new Error(`Hubo un problema al agregar el ${user}.`);
+      }
     } catch (e) {
       console.log('error on submit ', e);
     }
   };
-  const navigate = useNavigate();
+
   return (
     <Grid container direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
       <Grid item>
         <Typography fontSize={39} fontWeight="light">
-          Agregar un Estudiante:
+          Agregar {user}:
         </Typography>
       </Grid>
 
@@ -80,7 +100,17 @@ export const AddStudentInput = () => {
             </Grid>
           </FormControl>
         </form>
+
+        <ComponentButton route={'/'} right={18} bottom={35}>
+          <ArrowBack sx={{ fontSize: 30 }} />
+        </ComponentButton>
       </Grid>
     </Grid>
   );
 };
+
+AddUserInput.propTypes = {
+  user: PropTypes.string.isRequired,
+};
+
+export default AddUserInput;
