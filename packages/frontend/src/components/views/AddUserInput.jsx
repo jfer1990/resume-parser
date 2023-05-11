@@ -26,7 +26,7 @@ const AddUserInput = ({ user }) => {
 
   const { status, mutate, isSuccess } = useMutation(user === 'reviewer' ? addReviewer : addMember, {
     onSuccess: () => {
-      queryClient.invalidateQueries([user === 'reviewer' ? 'reviewers' : 'students']);
+      queryClient.invalidateQueries([user === 'reviewer' ? 'reviewers' : 'members']);
     },
   });
   const onSubmit = async (event) => {

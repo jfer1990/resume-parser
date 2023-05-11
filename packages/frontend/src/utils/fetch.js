@@ -1,6 +1,6 @@
 export async function fetchMembers() {
   try {
-    const endPoint = import.meta.env.VITE_REACT_APP_REST_API + '/students/getAll';
+    const endPoint = import.meta.env.VITE_REACT_APP_REST_API + '/members/getAll';
     const response = await fetch(endPoint);
     if (!response.ok) {
       throw new Error('Error en la solicitud al endpoint');
@@ -13,7 +13,7 @@ export async function fetchMembers() {
 }
 export async function fetchReviewers() {
   try {
-    const endPoint = import.meta.env.VITE_REACT_APP_REST_API + '/reviewers/getTodayAssignation';
+    const endPoint = import.meta.env.VITE_REACT_APP_REST_API + '/revisions/assignation-of-today';
     const response = await fetch(endPoint);
     if (!response.ok) {
       throw new Error('Error en la solicitud al endpoint');
@@ -27,7 +27,7 @@ export async function fetchReviewers() {
 
 // Función para agregar un nuevo usuario
 export async function addMember(newUser) {
-  const endPoint = import.meta.env.VITE_REACT_APP_REST_API + '/students';
+  const endPoint = import.meta.env.VITE_REACT_APP_REST_API + '/members';
   const response = await fetch(endPoint, {
     method: 'POST',
     headers: {
@@ -52,7 +52,7 @@ export async function addReviewer(newUser) {
 }
 
 export async function deleteMember(email) {
-  const path = import.meta.env.VITE_REACT_APP_REST_API + '/students'; //cambiar por member
+  const path = import.meta.env.VITE_REACT_APP_REST_API + '/members'; //cambiar por member
   const response = await fetch(path, {
     method: 'DELETE',
     headers: {
@@ -71,6 +71,17 @@ export async function deleteReviewer(email) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email: email }),
+  });
+  const data = await response.json();
+  return data;
+}
+export async function rollMembers() {
+  const endPoint = import.meta.env.VITE_REACT_APP_REST_API + '/revisions/force-assignation-of-today';
+  const response = await fetch(endPoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
   const data = await response.json();
   return data;

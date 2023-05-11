@@ -30,13 +30,13 @@ export const ReviewersTable = () => {
   const { data, status } = useQuery(['reviewers'], fetchReviewers);
 
   useEffect(() => {
-    if (data && data.assignments) {
-      const reviewers = data.assignments
-        .map((assignment) => ({
-          id: assignment.reviewer.id,
-          name: assignment.reviewer.name,
-          email: assignment.reviewer.email,
-          members: assignment.reviewer.assigned_students,
+    if (data && data.revisions) {
+      const reviewers = data.revisions
+        .map(({ reviewer, members }) => ({
+          id: reviewer.id,
+          name: reviewer.name,
+          email: reviewer.email,
+          members: members,
         }))
         .sort((a, b) => a.name.localeCompare(b.name));
       setReviewItems(reviewers);
@@ -48,7 +48,7 @@ export const ReviewersTable = () => {
   }
 
   if (status === 'error') {
-    return <div>Error al cargar los datos de los estudiantes.</div>;
+    return <div>Error al cargar los datos de los reviewers</div>;
   }
 
   return (

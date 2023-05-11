@@ -16,13 +16,13 @@ export const SideBar = () => {
   // @ts-ignore
   const { members, setMembers, open, setOpen } = useContext(ReviewerContext);
 
-  const { data, status } = useQuery(['students'], fetchMembers);
+  const { data, status } = useQuery(['members'], fetchMembers);
 
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   useEffect(() => {
-    if (data && data.students) {
-      setMembers(data.students);
+    if (data && data.members) {
+      setMembers(data.members);
     }
   }, [data, setMembers]);
 

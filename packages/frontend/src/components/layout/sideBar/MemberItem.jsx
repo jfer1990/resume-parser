@@ -19,7 +19,7 @@ const MemberItem = ({ name, email }) => {
 
   const { status, mutate } = useMutation(deleteMember, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['students']);
+      queryClient.invalidateQueries(['members']);
     },
   });
   const onDelete = async () => {
