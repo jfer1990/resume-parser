@@ -7,8 +7,8 @@ import Revision from '../models/revision.js';
 
 const getTodayRevision = async (req, res = response) => {
   const date = moment().startOf('day').toDate();
-  const revisions = await Revision.findOne({ date }).populate('reviewer').populate('members'); // populate the members array
-  console.log('revisions', revisions);
+  const revisions = await Revision.find({ date }).populate('reviewer').populate('members'); // populate the members array
+  // console.log('revisions', revisions);
   res.json({
     msg: 'Get random assignments API - controller',
     revisions,
