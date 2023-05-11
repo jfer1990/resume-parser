@@ -1,8 +1,10 @@
 import cors from 'cors';
 import express from 'express';
 import dbConnection from '../db/config.js';
-import candidateRoute from '../routes/candidates.js';
+import { scheduleAssignation } from '../helpers/schedule.js';
+import candidateRoute from '../routes/members.js';
 import reviewerRoute from '../routes/reviewers.js';
+import revisionRoute from '../routes/revisions.js';
 
 class Server {
   constructor() {
@@ -15,14 +17,17 @@ class Server {
     // Middlewares
     this.middlewares();
 
+    // Schedule Job
+    scheduleAssignation();
+
     // App Routes
     this.routes();
   }
 
   routes() {
     this.app.use('/api/reviewers', reviewerRoute);
-    // FIXME: rename students to members leer todo numero 3 en la raíz del proyecto.
-    this.app.use('/api/students', candidateRoute);
+    this.app.use('/api/members', candidateRoute);
+    this.app.use('/api/revisions', revisionRoute);
   }
 
   middlewares() {
