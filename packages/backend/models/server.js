@@ -1,8 +1,7 @@
 import cors from 'cors';
 import express from 'express';
-import dbConnection from '../db/config.js';
-import candidateRoute from '../routes/candidates.js';
-import reviewerRoute from '../routes/reviewers.js';
+import FileUpload from 'express-fileupload';
+import router from '../routes/documents.js';
 
 class Server {
   constructor() {
@@ -10,7 +9,7 @@ class Server {
     this.port = process.env.PORT;
 
     // connect db
-    this.connectDB();
+    // this.connectDB();
 
     // Middlewares
     this.middlewares();
@@ -20,8 +19,7 @@ class Server {
   }
 
   routes() {
-    this.app.use('/api/reviewers', reviewerRoute);
-    this.app.use('/api/candidates', candidateRoute);
+    this.app.use('/api/document', router);
   }
 
   middlewares() {
@@ -30,6 +28,8 @@ class Server {
 
     // Lectura y parseo
     this.app.use(express.json());
+    //Middleware to parse documents
+    this.app.use(FileUpload());
   }
 
   async connectDB() {

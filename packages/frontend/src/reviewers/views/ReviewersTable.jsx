@@ -1,23 +1,15 @@
 import { Box, Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
-import ReviewerItem from '../components/ReviewerItem';
+import { useEffect } from 'react';
+import MuiFileUploader from '../components/FileUploader';
 
 export const ReviewersTable = () => {
-  const [reviewItems, setReviewItems] = useState([]);
-
   useEffect(() => {
     (async () => {
       try {
-        const assignmentsPath = 'http://localhost:8080' + '/api/reviewers/getTodayCandidates';
-        const response = await fetch(assignmentsPath);
-        const { assignments } = await response.json();
-        console.log('assignments', assignments);
-        setReviewItems(() => [
-          ...assignments.map((assignment) => ({
-            name: assignment.reviewer.name,
-            members: assignment.reviewer.assigned_candidates,
-          })),
-        ]); // change for students
+        const path = 'http://localhost:8080' + '/api/documents/uploadPDF';
+        const response = await fetch(path);
+        const res = await response.json();
+        console.log('result', res);
       } catch (e) {
         console.log('error', e);
       }
@@ -49,9 +41,7 @@ export const ReviewersTable = () => {
           overflow: 'hidden',
         }}
       >
-        {reviewItems.map((reviewer) => (
-          <ReviewerItem key={JSON.stringify(reviewer)} reviewer={reviewer.name} members={reviewer.members} />
-        ))}
+        <MuiFileUploader />
       </Grid>
     </Box>
   );

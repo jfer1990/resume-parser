@@ -1,16 +1,13 @@
 import { MenuOutlined } from '@mui/icons-material';
-import { AppBar, Grid, IconButton, Toolbar, Typography } from '@mui/material';
-import { useContext } from 'react';
-import { ReviewerContext } from './context/Reviewercontext';
+import { AppBar, Grid, IconButton, Toolbar } from '@mui/material';
 
 export const NavBar = () => {
-  const { drawerWidth } = useContext(ReviewerContext);
   return (
     <AppBar
       position="fixed"
       sx={{
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
-        ml: { sm: `${drawerWidth}px` },
+        width: { sm: `calc(100% )` },
+        ml: { sm: `0px` },
       }}
     >
       <Toolbar>
@@ -19,10 +16,6 @@ export const NavBar = () => {
         </IconButton>
 
         <Grid container direction="row" justifyContent="center" alignItems="center">
-          <Typography variant="h4" noWrap component="div">
-            Day of the week: {'15'}
-          </Typography>
-
           <IconButton color="error"></IconButton>
         </Grid>
       </Toolbar>
